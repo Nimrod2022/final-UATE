@@ -17,12 +17,15 @@
       defer
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style></style>
+    <style>
+      
+    </style>
   </head>
   <body>
     <form method="GET">
       <label for="year">Select Year:</label>
       <select id="year" name="year">
+
         <option value="2010">2010</option>
         <option value="2011">2011</option>
         <option value="2012">2012</option>
@@ -42,495 +45,478 @@
       <button type="submit">Update</button>
     </form>
     <div class="flex justify-between">
-      <div class="w-2/4 p-10 h-screen overflow-y-auto bg-[#f8f8fc] rounded-md">
+      <div class=" w-2/4 p-10 h-screen overflow-y-auto bg-[#f8f8fc] rounded-md">
         <div>
-          <button
-            id="infoBtn1"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onclick="showInfoContent1()"
-          >
-            Info1
-          </button>
-          <button
-            id="infoBtn2"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onclick="showInfoContent2()"
-          >
-            Info2
-          </button>
-        </div>
+            <button id="infoBtn1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent1()">Layers & Legend</button>
+<button id="infoBtn2" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent2()">Info</button>
+          </div>
+        
+          
+          <div id="infoContent1">
+             <div class="box-shadow pt-5" id="info-card"></div>
+             <p class="my-3 font-semibold"> Dataset summary </p>
+            <canvas id="LineChart"></canvas>
+            <canvas id="Line2Chart"></canvas>          
+          </div>
 
-        {% comment %} <canvas id="myLineChart"></canvas> {% endcomment %}
-        <div id="infoContent1">
-          <div class="box-shadow pt-5" id="info-card"></div>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod
-          quam eu tortor congue, quis tincidunt elit fringilla. Nunc et neque
-          vel quam tincidunt facilisis. Nulla facilisi. Praesent hendrerit, quam
-          quis malesuada facilisis, libero libero hendrerit erat, nec efficitur
-          libero odio eu tortor. Vestibulum ante ipsum primis in faucibus orci
-          luctus et ultrices posuere cubilia curae; Maecenas vitae turpis ut
-          elit fermentum lacinia vel non velit. Sed euismod semper sapien, ac
-          venenatis sapien dignissim vel. Pellentesque sodales ullamcorper
-          libero, a tempor urna vehicula ac. Fusce nec erat libero. Fusce congue
-          nunc id ipsum interdum, in laoreet orci dictum. Maecenas eu magna
-          vitae ex tincidunt faucibus id in massa. Vivamus eu rhoncus tortor.
-          Sed eget fermentum quam. Donec eget aliquam nulla, sed consectetur mi.
-          Ut vel viverra libero. Integer ullamcorper orci nec metus ultrices
-          vehicula. Duis consequat odio eget justo sodales, eu cursus elit
-          vehicula. Proin auctor non risus eu iaculis. Sed bibendum bibendum
-          felis, sit amet euismod est eleifend ut. Vestibulum et odio augue.
-          Etiam cursus arcu sed arcu cursus, quis vehicula turpis bibendum.
-          Vestibulum ut justo ac libero efficitur bibendum. Nulla lacinia, metus
-          a congue euismod, odio elit consectetur tortor, ac luctus odio massa
-          in augue. Sed elementum justo vel tellus euismod bibendum. Suspendisse
-          potenti. Curabitur at justo vel sapien luctus gravida. Sed sed
-          volutpat augue. Maecenas varius, nunc vel aliquet suscipit, lectus
-          odio pharetra est, vel tincidunt quam erat in erat. Integer ultrices,
-          dolor a bibendum scelerisque, metus ex lobortis arcu, nec tincidunt
-          dui lorem at justo. Phasellus eu velit tristique, lacinia est non,
-          efficitur tortor. Nunc et mattis tortor. Cras non enim id sapien
-          congue tempus in sit amet purus. Vivamus non congue tellus. Integer
-          volutpat justo nec sapien lacinia, quis condimentum justo sodales. Sed
-          malesuada euismod libero, eu efficitur felis rhoncus id. Suspendisse
-          potenti. Suspendisse potenti. Sed non dui id tortor eleifend ultrices.
-          Etiam tincidunt libero vel lacus fringilla, ac venenatis metus
-          aliquet. Vestibulum viverra, justo sit amet eleifend sagittis, urna
-          leo elementum leo, nec viverra purus est ut felis. Nullam congue ac
-          eros vel rhoncus. Sed vitae justo nec odio commodo facilisis. Vivamus
-          nec sapien justo. Curabitur ullamcorper varius turpis, a lacinia lorem
-          volutpat a. Fusce eu nunc vel felis congue hendrerit. Duis in
-          hendrerit turpis. Praesent malesuada, odio vel luctus euismod, sapien
-          tellus efficitur lectus, non blandit lorem velit ut ex. Sed quis justo
-          eu purus egestas venenatis ac sit amet sapien. Proin at vestibulum
-          justo. Nam non nisl id libero hendrerit dignissim. Ut auctor, nunc sit
-          amet vehicula tristique, nunc libero gravida justo, et fermentum arcu
-          odio eget nulla. Vestibulum id sem et orci semper vehicula. Sed a
-          tincidunt urna. Sed venenatis scelerisque nisl at feugiat. Curabitur
-          tincidunt feugiat felis, vel hendrerit eros. Sed non libero non ex
-          dictum ultrices. Nullam interdum ex ac libero bibendum, id suscipit
-          dolor rhoncus. Integer vel varius erat. In viverra felis non mi
-          dignissim blandit. Vestibulum ante ipsum primis in faucibus orci
-          luctus et ultrices posuere cubilia curae; Vivamus id nunc et libero
-          interdum accumsan. Sed varius arcu ac libero mattis, id volutpat ex
-          eleifend. Proin id tristique dui. Etiam tristique odio ac efficitur
-          auctor. Nam sed lacinia justo. Fusce nec quam non ipsum facilisis
-          fermentum in non sem. Ut ut rutrum est. Aenean commodo vestibulum
-          massa, a varius velit fermentum eget. Integer quis nisl in erat
-          volutpat consequat. Aenean vitae ex nunc. Nulla facilisi. Integer eu
-          nunc a metus lacinia euismod. Maecenas volutpat fermentum sapien eget
-          fringilla. Fusce ut orci id libero tristique fermentum id a odio. Sed
-          sit amet facilisis justo. Pellentesque eu odio nec elit euismod
-          interdum a eget ligula. Nullam eu elit vel risus dignissim euismod.
-          Fusce condimentum, lectus id cursus venenatis, felis massa maximus
-          nulla, in fermentum quam sem vitae ligula. Vestibulum dictum orci eu
-          diam feugiat, in interdum ante blandit. Nam ut lectus vitae ligula
-          ultricies interdum eget ac nulla. Curabitur vehicula euismod turpis eu
-          fermentum. In hac habitasse platea dictumst. Cras a mauris sit amet
-          nunc placerat dapibus. Vestibulum in purus sem. Phasellus in dapibus
-          libero, ac finibus quam. Nullam vestibulum risus eget eleifend
-          tristique. Integer dignissim libero in nibh cursus, non eleifend
-          libero egestas. In consectetur, justo eget suscipit egestas, nunc
-          purus dignissim augue, non tincidunt turpis quam eu turpis. In hac
-          habitasse platea dictumst.
-        </div>
-        <p id="infoContent2">
-          hgjkl;'' Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-          euismod quam eu tortor congue, quis tincidunt elit fringilla. Nunc et
-          neque vel quam tincidunt facilisis. Nulla facilisi. Praesent
-          hendrerit, quam quis malesuada facilisis, libero libero hendrerit
-          erat, nec efficitur libero odio eu tortor. Vestibulum ante ipsum
-          primis in faucibus orci luctus et ultrices posuere cubilia curae;
-          Maecenas vitae turpis ut elit fermentum lacinia vel non velit. Sed
-          euismod semper sapien, ac venenatis sapien dignissim vel. Pellentesque
-          sodales ullamcorper libero, a tempor urna vehicula ac. Fusce nec erat
-          libero. Fusce congue nunc id ipsum interdum, in laoreet orci dictum.
-          Maecenas eu magna vitae ex tincidunt faucibus id in massa. Vivamus eu
-          rhoncus tortor. Sed eget fermentum quam. Donec eget aliquam nulla, sed
-          consectetur mi. Ut vel viverra libero. Integer ullamcorper orci nec
-          metus ultrices vehicula. Duis consequat odio eget justo sodales, eu
-          cursus elit vehicula. Proin auctor non risus eu iaculis. Sed bibendum
-          bibendum felis, sit amet euismod est eleifend ut. Vestibulum et odio
-          augue. Etiam cursus arcu sed arcu cursus, quis vehicula turpis
-          bibendum. Vestibulum ut justo ac libero efficitur bibendum. Nulla
-          lacinia, metus a congue euismod, odio elit consectetur tortor, ac
-          luctus odio massa in augue. Sed elementum justo vel tellus euismod
-          bibendum. Suspendisse potenti. Curabitur at justo vel sapien luctus
-          gravida. Sed sed volutpat augue. Maecenas varius, nunc vel aliquet
-          suscipit, lectus odio pharetra est, vel tincidunt quam erat in erat.
-          Integer ultrices, dolor a bibendum scelerisque, metus ex lobortis
-          arcu, nec tincidunt dui lorem at justo. Phasellus eu velit tristique,
-          lacinia est non, efficitur tortor. Nunc et mattis tortor. Cras non
-          enim id sapien congue tempus in sit amet purus. Vivamus non congue
-          tellus. Integer volutpat justo nec sapien lacinia, quis condimentum
-          justo sodales. Sed malesuada euismod libero, eu efficitur felis
-          rhoncus id. Suspendisse potenti. Suspendisse potenti. Sed non dui id
-          tortor eleifend ultrices. Etiam tincidunt libero vel lacus fringilla,
-          ac venenatis metus aliquet. Vestibulum viverra, justo sit amet
-          eleifend sagittis, urna leo elementum leo, nec viverra purus est ut
-          felis. Nullam congue ac eros vel rhoncus. Sed vitae justo nec odio
-          commodo facilisis. Vivamus nec sapien justo. Curabitur ullamcorper
-          varius turpis, a lacinia lorem volutpat a. Fusce eu nunc vel felis
-          congue hendrerit. Duis in hendrerit turpis. Praesent malesuada, odio
-          vel luctus euismod, sapien tellus efficitur lectus, non blandit lorem
-          velit ut ex. Sed quis justo eu purus egestas venenatis ac sit amet
-          sapien. Proin at vestibulum justo. Nam non nisl id libero hendrerit
-          dignissim. Ut auctor, nunc sit amet vehicula tristique, nunc libero
-          gravida justo, et fermentum arcu odio eget nulla. Vestibulum id sem et
-          orci semper vehicula. Sed a tincidunt urna. Sed venenatis scelerisque
-          nisl at feugiat. Curabitur tincidunt feugiat felis, vel hendrerit
-          eros. Sed non libero non ex dictum ultrices. Nullam interdum ex ac
-          libero bibendum, id suscipit dolor rhoncus. Integer vel varius erat.
-          In viverra felis non mi dignissim blandit. Vestibulum ante ipsum
-          primis in faucibus orci luctus et ultrices posuere cubilia curae;
-          Vivamus id nunc et libero interdum accumsan. Sed varius arcu ac libero
-          mattis, id volutpat ex eleifend. Proin id tristique dui. Etiam
-          tristique odio ac efficitur auctor. Nam sed lacinia justo. Fusce nec
-          quam non ipsum facilisis fermentum in non sem. Ut ut rutrum est.
-          Aenean commodo vestibulum massa, a varius velit fermentum eget.
-          Integer quis nisl in erat volutpat consequat. Aenean vitae ex nunc.
-          Nulla facilisi. Integer eu nunc a metus lacinia euismod. Maecenas
-          volutpat fermentum sapien eget fringilla. Fusce ut orci id libero
-          tristique fermentum id a odio. Sed sit amet facilisis justo.
-          Pellentesque eu odio nec elit euismod interdum a eget ligula. Nullam
-          eu elit vel risus dignissim euismod. Fusce condimentum, lectus id
-          cursus venenatis, felis massa maximus nulla, in fermentum quam sem
-          vitae ligula. Vestibulum dictum orci eu diam feugiat, in interdum ante
-          blandit. Nam ut lectus vitae ligula ultricies interdum eget ac nulla.
-          Curabitur vehicula euismod turpis eu fermentum. In hac habitasse
-          platea dictumst. Cras a mauris sit amet nunc placerat dapibus.
-          Vestibulum in purus sem. Phasellus in dapibus libero, ac finibus quam.
-          Nullam vestibulum risus eget eleifend tristique. Integer dignissim
-          libero in nibh cursus, non eleifend libero egestas. In consectetur,
-          justo eget suscipit egestas, nunc purus dignissim augue, non tincidunt
-          turpis quam eu turpis. In hac habitasse platea dictumst.
-        </p>
+            <p class="pt-5" id="infoContent2">
+              Welcome to UATE web map! This dashboard is designed to provide an overview of trends of Ukrainian asylum seekers in Europe over the past decade. 
+              Please note that the data visualization may take a moment to load.
+            </p>
+
+            <p class="pt-5" id="infoContent2">
+              The asylum data presented in the charts is from the United Nations High Commission for Refugees (UNHCR) Refugee Statistics API. 
+              It spans from 2013 to 2022 and reflects the number of asylum applicants, decisions made on the applications and the population of 
+              Ukrainian nationals living with asylum status in the respective countries.  
+            </p>
+            <p class="pt-5" id="infoContent2">
+              The project is more than just a data visualization; it's a narrative of human experience. It serves as a resource for migration studies students by shedding light on the trends and outcomes of Ukrainian asylum applications. 
+              The aim is to foster a deeper understanding of the complexities involved in seeking refuge and the global responses to such crises.  
+            </p>
+
+            <p class="pt-5" id="infoContent2">
+              We encourage you to share your thoughts, suggestions, or any observations you might have about this map and its content.   
+            </p>
+          
+
       </div>
-      <div class="sticky top-0 h-screen w-[100%]" id="map"></div>
+      <div class="sticky top-0 h-screen w-[100%]" id="map">
+      
+      </div>
+      
+
+      
     </div>
 
     <script type="text/javascript">
-                                var map;
-                                            var ukraineCoords = { lat: 48.3794, lng: 31.1656 }; // Approximate coordinates for Ukraine
+                            var map;
+                                        var ukraineCoords = { lat: 48.3794, lng: 31.1656 }; // Approximate coordinates for Ukraine
 
-                                            var coordinatesList = JSON.parse(
-                                              "{{ coordinates_list_json|safe|escapejs }}"
-                                            );
-                                            console.log("----coordinatesList----")
-                                            lineGraphFromCountries(coordinatesList)
-                                            console.log(coordinatesList);
-                                            function initMap() {
-                                              // New map
-                                              map = new google.maps.Map(document.getElementById("map"), {
-                                                zoom: 4,
-                                                center: { lat: 54.526, lng: 15.2551 }, // Central point of Europe
+                                        var coordinatesList = JSON.parse(
+                                          "{{ coordinates_list_json|safe|escapejs }}"
+                                        );
+                                        console.log("----coordinatesList----")
+                     
+                                        console.log(coordinatesList);
+                                        function initMap() {
+                                          // New map
+                                          map = new google.maps.Map(document.getElementById("map"), {
+                                            zoom: 4,
+                                            center: { lat: 54.526, lng: 15.2551 }, // Central point of Europe
+                                          });
+
+                                          // Extend bounds for each marker
+                                          var bounds = new google.maps.LatLngBounds();
+                                          for (var i = 0; i < coordinatesList.length; i++) {
+                                            addMarker(coordinatesList[i]);
+                                          }
+
+                                          addUkMarker({ coords: ukraineCoords });
+
+                                          // Add Marker Function
+                                          ;
+                                          function addMarker(props) {
+                                            var marker = new google.maps.Marker({
+                                              position: props.coords,
+                                              map: map,
+                                              icon: {
+                                                url: "{% static 'images/location-icon.png' %}",
+                                                scaledSize: new google.maps.Size(40, 40), // You can adjust the size
+                                              },
+                                            });
+
+                                            console.log(props);
+
+                                            // Check content
+                                            if (props.content) {
+                                              var infoWindow = new google.maps.InfoWindow({
+                                                content: props.content,
                                               });
+                                            
 
-                                              // Extend bounds for each marker
-                                              var bounds = new google.maps.LatLngBounds();
-                                              for (var i = 0; i < coordinatesList.length; i++) {
-                                                addMarker(coordinatesList[i]);
-                                              }
-
-                                              addUkMarker({ coords: ukraineCoords });
-
-                                              // Add Marker Function
-                                              ;
-                                              function addMarker(props) {
-                                                var marker = new google.maps.Marker({
-                                                  position: props.coords,
-                                                  map: map,
-                                                });
-
-                                                console.log(props);
-
-                                                // Check content
-                                                if (props.content) {
-                                                  var infoWindow = new google.maps.InfoWindow({
-                                                    content: props.content,
-                                                  });
-
-
-                                                  marker.addListener("click", function () {
-                                                    // Update card content
-                                                    updateInfoCard(props.card_data);
-                                                    drawLineToUkraine(props.coords);
-                                                    showInfoContent1();
-                                                  });
-                                                }
-
-                                                // Extend the bounds to include each marker's position
-                                                bounds.extend(marker.position);
-                                              }
-
-                                              function addUkMarker(props) {
-                  var marker = new google.maps.Marker({
-                      position: props.coords,
-                      map: map,
-                      icon: {
-                          url: 'data:image/png;base64,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', // URL to your custom colored icon
-                          scaledSize: new google.maps.Size(40, 40) // You can adjust the size
-                      }
-                  });
-
-                  // ... rest of your existing code
-              }
-
-                                              // Now fit the map to the newly inclusive bounds
-                                              map.fitBounds(bounds);
+                                              marker.addListener("click", function () {
+                                                // Update card content
+                                                updateInfoCard(props.card_data);
+                                                drawLineToUkraine(props.coords);
+                                                showInfoContent1();
+                                                hideLineGraphs();
+                                              });
                                             }
 
+                                            // Extend the bounds to include each marker's position
+                                            bounds.extend(marker.position);
+                                          }
 
-                                            function updateInfoCard(data) {
-                                              console.log(data);
-                                              var card = document.getElementById("info-card");
-                                              card.style.display = "block";
-                                              card.innerHTML = `
-                                              <h1 class="text-blue-500 font-bold text-2xl uppercase">${data.coa_name}</h1>
-                                              <p class="font-medium text-blue-500 text-2xl">${data.year}</p>
-                                              <div class="h-[2px] bg-blue-500 mt-3 w-[100%]"></div>
+                                          function addUkMarker(props) {
+              var marker = new google.maps.Marker({
+                  position: props.coords,
+                  map: map,
+                  icon: {
+                      url: "{% static 'images/Ukraine-icon.png' %}",
+                      scaledSize: new google.maps.Size(40, 40) // You can adjust the size
+                  }
+              });
 
-                                              <div class="flex gap-5 items-center mt-3">
-                                                <h2 class="text-blue-500 text-4xl">${data.applied}<h2>
-                                                <p class="text-2xl">applications</p>
-                                              </div>
-
-                                              <div class="flex gap-3 mt-4">
-                                              <div class="flex gap-2 items-center border-2 border-blue-500 p-5">
-                                                <p class="text-7xl text-gray-500">
-                                                  <i class="fas fa-female"></i>
-
-                                                </p>
-                                                <p class="text-3xl">${Math.round((data.f_total/ (data.f_total + data.m_total))* 100)}%</p>
-
-
-                                              </div>
-                                              <div class="flex gap-2 items-center border-2 border-blue-500 p-5">
-                                                <p class="text-7xl text-gray-500">
-                                                  <i class="fas fa-male"></i>
-
-                                                </p>
-                                                <p class="text-3xl"> ${Math.round((data.m_total / (data.f_total + data.m_total))*100)}%</p>
-                                              </div>
-                                            </div>
-
-                                            <canvas id="myChart"></canvas>
-                                            <canvas id="decChart"></canvas>
-                                            <canvas id="pyChart"></canvas>
-                                            <canvas id="myLineChart"></canvas>
-
-
-                                              <p>Year: ${data.year}</p>
-                                              <p>applied: ${data.applied}</p>
-                                              <p>decision closed: ${data.dec_closed}</p>
-                                              <p>Decision level: ${data.dec_level}</p>
-                                              <p>Decision recognized: ${data.dec_recognized}</p>
-                                              <p>Decision rejected: ${data.dec_rejected}</p>
-                                              <p>total decisions: ${data.dec_total}</p>
-                                              <p>total females: ${data.f_total}</p>
-                                              <p>total decisions: ${data.m_total}</p>
-                                              <p>procedure type: ${data.procedure_type}</p>
-                                              <p>procedure type: ${data.coa_name}</p>
-                                              <p>procedure type: ${data.coo_name}</p>
-                                              `;
-                                              var ctx = document.getElementById("myChart").getContext("2d");
-
-      // Create the data for the chart
-      var chartData = {
-        labels: ["Female", "Male"],
-        datasets: [
-          {
-            label: "Gender Percentage",
-            data: [
-              Math.round((data.f_total / (data.f_total + data.m_total)) * 100),
-              Math.round((data.m_total / (data.f_total + data.m_total)) * 100),
-            ],
-            backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)"],
-            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-            borderWidth: 1,
-          },
-        ],
-      };
-
-      // Create and display the chart
-      var myChart = new Chart(ctx, {
-        type: "bar",
-        data: chartData,
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
-            },
-          },
-        },
-      });
-
-       var ctx = document.getElementById("decChart").getContext("2d");
-
-      // Create the data for the chart
-      var chartData = {
-        labels: ["Decisions rejected", "Decisions recognized", "Decisions closed", "other decisions"],
-        datasets: [
-          {
-            label: "Decision Percentage",
-            data: [
-              Math.round((data.dec_rejected / (data.dec_total)) * 100),
-              Math.round((data.dec_recognized / (data.dec_total)) * 100),
-              Math.round((data.dec_closed / (data.dec_total)) * 100),
-              Math.round(((data.dec_other/ (data.dec_total)) * 100)),
-            ],
-            backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)", "rgba(255, 206, 86, 0.5)", "rgba(75, 192, 192, 0.5)"],
-            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)"],
-            borderWidth: 1,
-          },
-        ],
-      };
-
-      // Create and display the chart
-      var myChart = new Chart(ctx, {
-        type: "bar",
-        data: chartData,
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 100,
-            },
-          },
-        },
-      });
-       var ctx = document.getElementById("pyChart").getContext("2d");
-
-      // Create the data for the chart
-      var chartData = {
-        labels: ["Female", "Male"],
-        datasets: [
-          {
-            data: [
-              Math.round((data.f_total / (data.f_total + data.m_total)) * 100),
-              Math.round((data.m_total / (data.f_total + data.m_total)) * 100),
-            ],
-            backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)"],
-            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-            borderWidth: 1,
-          },
-        ],
-      };
-
-      // Create and display the chart as a pie chart
-      var pyChart = new Chart(ctx, {
-        type: "pie",
-        data: chartData,
-        options: {
-          plugins: {
-            legend: {
-              display: true,
-              position: "right", // You can adjust the legend position
-            },
-          },
-        },
-      });
-
-
-
-                                            }
-                                            var currentLine = null;
-                                          function drawLineToUkraine(coaCoords) {
-                        if (currentLine) {
-                            currentLine.setMap(null); // Remove existing line if present
-                        }
-
-                        var lineSymbol = {
-                            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                        };
-
-                        var line = new google.maps.Polyline({
-                            path: [ukraineCoords, coaCoords],
-                            icons: [{
-                                icon: lineSymbol,
-                                offset: '0%'
-                            }],
-                            map: map,
-                            geodesic: true,
-                            strokeColor: "red",
-                            strokeOpacity: 1.0,
-                            strokeWeight: 2,
-                        });
-
-                        currentLine = line; // Update current line
-
-                        animateArrow(line); // Call the function to animate the arrow
-                    }
-
-                    function animateArrow(line) {
-                        var count = 0;
-                        window.setInterval(function() {
-                            count = (count + 1) % 200; // Adjust speed and loop
-
-                            var icons = line.get('icons');
-                            icons[0].offset = (count / 2) + '%'; // Move the icon
-                            line.set('icons', icons);
-                        }, 20); // Adjust for speed
-                    }
-
-
-                                            {% comment %} function drawDemo() {
-                              function drawLine(startCoords, endCoords) {
-                                  const line = new google.maps.Polyline({
-                                      path: [startCoords, endCoords],
-                                      geodesic: true,
-                                      strokeColor: 'red',
-                                      strokeOpacity: 1.0,
-                                      strokeWeight: 2,
-                                  });
-
-                                  line.setMap(map);
-                              }
-
-                              const startCoords = { lat: 47.516231, lng: 14.550072 };
-                              const endCoords = { lat: 46.227638, lng: 2.213749 };
-                              drawLine(startCoords, endCoords);
-                          } {% endcomment %}
-
-                          function updateYear() {
-            var selectedYear = document.getElementById("year").value;
-            var currentUrl = window.location.href;
-
-            // Replace the existing year parameter in the URL with the selected year
-            var updatedUrl = currentUrl.replace(/year=\d{4}/, "year=" + selectedYear);
-
-            // Redirect to the updated URL
-            window.location.href = updatedUrl;
+              // ... rest of your existing code
           }
 
-        function showInfoContent1() {
-            let infoContent1 = document.getElementById("infoContent1");
-            let infoContent2 = document.getElementById("infoContent2");
+                                          // Now fit the map to the newly inclusive bounds
+                                          map.fitBounds(bounds);
+                                        }
+                                       
 
-            let infoBtn1 = document.getElementById("infoBtn1");
-            let infoBtn2 = document.getElementById("infoBtn2");
+                                        function updateInfoCard(data) {
+                                          console.log(data);
+                                          var card = document.getElementById("info-card");
+                                           let malePercentage = Math.round((data.m_total / (data.f_total + data.m_total)) * 100);
+                                              if (isNaN(malePercentage)) {
+                                                  malePercentage = 'No data available';
+                                              } else{
+                                                malePercentage = `${Math.round((data.m_total / (data.f_total + data.m_total)) * 100)} %`;
+                                              }
 
-            infoContent2.classList.add("hidden");
-            infoContent1.classList.remove("hidden");
-            infoBtn1.classList.add("bg-red-500");
-            infoBtn2.classList.remove("bg-red-500");
+                                            let femalePercentage = Math.round((data.f_total / (data.f_total + data.m_total)) * 100);
+                                              if (isNaN(femalePercentage)) {
+                                                  femalePercentage = 'No data available';
+                                              } else{
+                                                femalePercentage =`${Math.round((data.f_total / (data.f_total + data.m_total)) * 100)} %`;
+                                              }
+
+                                            let applications = data.applied;
+                                            if (applications==null) {
+                                              applications = 'No data available';
+                                            } else{
+                                              applications = data.applied;
+                                            }
+                                          card.style.display = "block";
+                                          card.innerHTML = `
+                                          <h1 class="text-blue-500 font-bold text-2xl uppercase">${data.coa_name}</h1>
+                                          <p class="font-medium text-blue-500 text-2xl">${data.year}</p>
+                                          <div class="h-[2px] bg-blue-500 mt-3 w-[100%]"></div>
+
+                                          <p class="py-4"> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor </p>
+                                          <div class="flex gap-5 items-center mt-3">
+                                            <h2 class="text-blue-500 text-4xl">${applications}<h2>
+                                            <p class="text-2xl">applications</p>
+                                          </div>
+
+                                          <p class="py-4"> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </p>
+
+                                          <div class="flex gap-3 mt-4">
+                                          <div class="flex gap-2 items-center border-2 border-blue-500 p-5">
+                                              <p class="text-7xl text-gray-500"><i class="fas fa-female"></i></p>
+                                              <p class="text-3xl">${femalePercentage}</p>
+                                          </div>
+                                          <div class="flex gap-2 items-center border-2 border-blue-500 p-5">
+                                              <p class="text-7xl text-gray-500"><i class="fas fa-male"></i></p>
+                                              <p class="text-3xl">${malePercentage}</p>
+                                          </div>
+                                      </div>
+
+                                      <p class="py-4"> lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </p>
 
 
-        }
+                                        
+                                        <canvas id="decChart"></canvas>
+                                        
+                                        <canvas id="myLineChart"></canvas>
 
-        function showInfoContent2() {
-            let infoContent1 = document.getElementById("infoContent1");
-            let infoContent2 = document.getElementById("infoContent2");
+                                          
+                                          <p>Year: ${data.year}</p>
+                                          <p>applied: ${data.applied }</p>
+                                          <p>decision closed: ${data.dec_closed}</p>
+                                          <p>Decision level: ${data.dec_level}</p>
+                                          <p>Decision recognized: ${data.dec_recognized}</p>
+                                          <p>Decision rejected: ${data.dec_rejected}</p>
+                                          <p>total decisions: ${data.dec_total}</p>
+                                          <p>total females: ${data.f_total}</p>
+                                          <p>total decisions: ${data.m_total}</p>
+                                          <p>procedure type: ${data.procedure_type}</p>
+                                          <p>procedure type: ${data.coa_name}</p>
+                                          <p>procedure type: ${data.coo_name}</p>
+                                          `;
+                                         
 
-            let infoBtn1 = document.getElementById("infoBtn1");
-            let infoBtn2 = document.getElementById("infoBtn2");
+   var ctx = document.getElementById("decChart").getContext("2d");
 
-            infoContent1.classList.add("hidden");
-            infoContent2.classList.remove("hidden");
-            infoBtn2.classList.add("bg-red-500");
-            infoBtn1.classList.remove("bg-red-500");
+  // Create the data for the chart
+  var chartData = {
+    labels: ["Decisions rejected", "Decisions recognized", "Decisions closed", "other decisions"],
+    datasets: [
+      {
+        label: "Decision Percentage ",
+        data: [
+          Math.round((data.dec_rejected / (data.dec_total)) * 100),
+          Math.round((data.dec_recognized / (data.dec_total)) * 100),
+          Math.round((data.dec_closed / (data.dec_total)) * 100),
+          Math.round(((data.dec_other/ (data.dec_total)) * 100)),
+        ],
+        backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)", "rgba(255, 206, 86, 0.5)", "rgba(75, 192, 192, 0.5)"],
+        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)"],
+        borderWidth: 1,
+      },
+    ],
+  };
 
-        }
+  // Create and display the chart
+  var myChart = new Chart(ctx, {
+    type: "bar",
+    data: chartData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+        },
+      },
+    },
+  });
+   
+
+  
+
+ 
+
+                                        }
+                                        var currentLine = null;
+                                      function drawLineToUkraine(coaCoords) {
+                    if (currentLine) {
+                        currentLine.setMap(null); // Remove existing line if present
+                    }
+
+                    var lineSymbol = {
+                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                    };
+
+                    var line = new google.maps.Polyline({
+                        path: [ukraineCoords, coaCoords],
+                        icons: [{
+                            icon: lineSymbol,
+                            offset: '0%'
+                        }],
+                        map: map,
+                        geodesic: true,
+                        strokeColor: "red",
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2,
+                    });
+
+                    currentLine = line; // Update current line
+
+                    animateArrow(line); // Call the function to animate the arrow
+                }
+
+                function animateArrow(line) {
+                    var count = 0;
+                    window.setInterval(function() {
+                        count = (count + 1) % 200; // Adjust speed and loop
+
+                        var icons = line.get('icons');
+                        icons[0].offset = (count / 2) + '%'; // Move the icon
+                        line.set('icons', icons);
+                    }, 20); // Adjust for speed
+                }
+
+
+                                        {% comment %} function drawDemo() {
+                          function drawLine(startCoords, endCoords) {
+                              const line = new google.maps.Polyline({
+                                  path: [startCoords, endCoords],
+                                  geodesic: true,
+                                  strokeColor: 'red',
+                                  strokeOpacity: 1.0,
+                                  strokeWeight: 2,
+                              });
+
+                              line.setMap(map);
+                          }
+
+                          const startCoords = { lat: 47.516231, lng: 14.550072 };
+                          const endCoords = { lat: 46.227638, lng: 2.213749 };
+                          drawLine(startCoords, endCoords);
+                      } {% endcomment %}
+
+                      function updateYear() {
+        var selectedYear = document.getElementById("year").value;
+        var currentUrl = window.location.href;
+
+        // Replace the existing year parameter in the URL with the selected year
+        var updatedUrl = currentUrl.replace(/year=\d{4}/, "year=" + selectedYear);
+
+        // Redirect to the updated URL
+        window.location.href = updatedUrl;
+      }
+
+    function showInfoContent1() {
+        let infoContent1 = document.getElementById("infoContent1");
+        let infoContent2 = document.getElementById("infoContent2");
+
+        let infoBtn1 = document.getElementById("infoBtn1");
+        let infoBtn2 = document.getElementById("infoBtn2");
+        
+        infoContent2.classList.add("hidden");
+        infoContent1.classList.remove("hidden");
+        infoBtn1.classList.add("bg-red-500");
+        infoBtn2.classList.remove("bg-red-500");
+
+
+    }
+
+    function showInfoContent2() {
+        let infoContent1 = document.getElementById("infoContent1");
+        let infoContent2 = document.getElementById("infoContent2");
+
+        let infoBtn1 = document.getElementById("infoBtn1");
+        let infoBtn2 = document.getElementById("infoBtn2");
+        
+        infoContent1.classList.add("hidden");
+        infoContent2.classList.remove("hidden");
+        infoBtn2.classList.add("bg-red-500");
+        infoBtn1.classList.remove("bg-red-500");
+
+    }
+
+    function hideLineGraphs() {
+        let lineGraphs = document.getElementById("LineChart");
+        let line2Graphs = document.getElementById("Line2Chart");
+        lineGraphs.classList.add("hidden");
+        line2Graphs.classList.add("hidden");
+
+    }
+
+ let litx = document.getElementById("LineChart").getContext("2d");
+
+// Preprocess the data from "applications" and "decisions"
+let applicationData = "{{ applications | safe | escapejs }}";
+let newApplicationData;
+let decisionData = "{{ decisions | safe | escapejs }}";
+let newDecisionData;
+
+try {
+    // If the data is a JSON string, this will parse it into a JavaScript object
+    newApplicationData = JSON.parse(applicationData);
+    console.log("----newApplicationData----");
+    console.log(newApplicationData);
+    newDecisionData = JSON.parse(decisionData);
+    console.log("----newDecisionData----");
+    console.log(newDecisionData);
+} catch (e) {
+    // If there was an error parsing, the data might already be a JavaScript object
+    console.error("Error parsing data: ", e);
+    newApplicationData = applicationData;
+    newDecisionData = decisionData;
+}
+console.log("------newApplicationData------");
+console.log(newApplicationData);
+console.log("------newDecisionData------");
+console.log(newDecisionData);
+
+
+// Extract the relevant data for the chart
+let labels = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021","2022"];
+
+
+// Create the data for the chart
+let lchartData = {
+  labels: labels,
+  datasets: [
+    {
+      label: "Decisions",
+      data: [{{ total_decisions_by_year.2013 }}, {{ total_decisions_by_year.2014 }}, {{ total_decisions_by_year.2015 }}, {{ total_decisions_by_year.2016 }}, {{ total_decisions_by_year.2017 }}, {{ total_decisions_by_year.2018 }}, {{ total_decisions_by_year.2019 }}, {{ total_decisions_by_year.2020 }}, {{ total_decisions_by_year.2021 }}, {{ total_decisions_by_year.2022 }}],
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      borderColor: "rgba(255, 99, 132, 1)",
+      borderWidth: 1,
+    },
+    {
+      label: "applications",
+      data: [{{ total_applications_by_year.2013 }}, {{ total_applications_by_year.2014 }}, {{ total_applications_by_year.2015 }}, {{ total_applications_by_year.2016 }}, {{ total_applications_by_year.2017 }}, {{ total_applications_by_year.2018 }}, {{ total_applications_by_year.2019 }}, {{ total_applications_by_year.2020 }}, {{ total_applications_by_year.2021 }}, {{ total_applications_by_year.2022 }}],
+      backgroundColor: "rgba(54, 162, 235, 0.5)",
+      borderColor: "rgba(54, 162, 235, 1)",
+      borderWidth: 1,
+    },
+  ],
+};
+
+// Create and display the chart as a line chart
+let myLineChart = new Chart(litx, {
+  type: "line",
+  data: lchartData,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+
+ let linetx = document.getElementById("Line2Chart").getContext("2d");
+
+ let secondlabels = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021"];
+
+
+// Create the data for the chart
+let linchartData = {
+  labels: labels,
+  datasets: [
+    {
+      label: "Female",
+      data: [{{ total_female_by_year.2013 }}, {{ total_female_by_year.2014 }}, {{ total_female_by_year.2015 }}, {{ total_female_by_year.2016 }}, {{ total_female_by_year.2017 }}, {{ total_female_by_year.2018 }}, {{ total_female_by_year.2019 }}, {{ total_female_by_year.2020 }}, {{ total_female_by_year.2021 }}],
+      backgroundColor: "rgba(255, 99, 132, 0.5)",
+      borderColor: "rgba(255, 99, 132, 1)",
+      borderWidth: 1,
+    },
+    {
+      label: "male",
+      data: [{{ total_male_by_year.2013 }}, {{ total_male_by_year.2014 }}, {{ total_male_by_year.2015 }}, {{ total_male_by_year.2016 }}, {{ total_male_by_year.2017 }}, {{ total_male_by_year.2018 }}, {{ total_male_by_year.2019 }}, {{ total_male_by_year.2020 }}, {{ total_male_by_year.2021 }}],
+      backgroundColor: "rgba(54, 162, 235, 0.5)",
+      borderColor: "rgba(54, 162, 235, 1)",
+      borderWidth: 1,
+    },
+  ],
+};
+
+// Create and display the chart as a line chart
+let myLine2Chart = new Chart(linetx, {
+  type: "line",
+  data: linchartData,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+
+
+
+ 
+
+console.log(["{{ total_decisions_by_year.2013 }}, {{ total_decisions_by_year.2014 }}, {{ total_decisions_by_year.2015 }}, {{ total_decisions_by_year.2016 }}, {{ total_decisions_by_year.2017 }}, {{ total_decisions_by_year.2018 }}, {{ total_decisions_by_year.2019 }}, {{ total_decisions_by_year.2020 }}, {{ total_decisions_by_year.2021 }}, {{ total_decisions_by_year.2022 }}"]);
+console.log("{{total_decisions_by_year.2013 }}");
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  let infoContent1 = document.getElementById("infoContent1");
+        let infoContent2 = document.getElementById("infoContent2");
+
+        let infoBtn1 = document.getElementById("infoBtn1");
+        let infoBtn2 = document.getElementById("infoBtn2");
+        
+        infoContent1.classList.add("hidden");
+        infoContent2.classList.remove("hidden");
+        infoBtn2.classList.add("bg-red-500");
+        infoBtn1.classList.remove("bg-red-500");
+});
+
+
+
+
+
+
+
+       
     </script>
   </body>
 </html>

@@ -1,28 +1,112 @@
 from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-import requests
+import requests# Create your views here.
 import json
 
 def home(request):
     year_param = request.GET.get('year') 
     print(year_param)
     if year_param:
-        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23:Asylum%20decisions%20for%20Ukrainian%20applicants%20in%20Europe&maxFeatures=1000&outputFormat=application/json&CQL_FILTER=year=' + year_param
-        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20applications%20for%20Ukrainians%20in%20Europe&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
+        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20decisions%20for%20Ukrainian%20applicants%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
+        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20applications%20for%20Ukrainians%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
         baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian%20asylum%20applications%20demographic%20breakdown%20in%20Europe&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
     else:
-        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23:Asylum%20decisions%20for%20Ukrainian%20applicants%20in%20Europe&maxFeatures=1000&outputFormat=application/json&CQL_FILTER=year=2020'
-        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20applications%20for%20Ukrainians%20in%20Europe&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
+        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20decisions%20for%20Ukrainian%20applicants%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
+        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20applications%20for%20Ukrainians%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
         baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian%20asylum%20applications%20demographic%20breakdown%20in%20Europe&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
 
     # Disable SSL verification (not recommended in production)
     response = requests.get(baseurl, verify=False)
+    
+    all_data_base_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20decisions%20for%20Ukrainian%20applicants%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson"
+    all_applications_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20applications%20for%20Ukrainians%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson"
+    demographic_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian%20asylum%20applications%20demographic%20breakdown%20in%20Europe&maxFeatures=1000&outputFormat=application%2Fjson"
+    
+    total_decisions_response = requests.get(all_data_base_url, verify=False)
+    total_applications_response = requests.get(all_applications_url, verify=False)
+    total_demographic_response = requests.get(demographic_url, verify=False)
+    print('------------------total_applications_response------------------')
+    new_total_decisions_response= total_decisions_response.text
+    new_total_applications_response = total_applications_response.text
+    new_total_demographic_response = total_demographic_response.text
+    new_total_decisions_response_obj = json.loads(new_total_decisions_response)
+    new_total_applications_response_obj = json.loads(new_total_applications_response)
+    new_total_demographic_response_obj = json.loads(new_total_demographic_response)
+    print("-----")
+    decisions = new_total_decisions_response_obj.get("features")
+    applications = new_total_applications_response_obj.get("features")
+    demographic = new_total_demographic_response_obj.get("features")
+    print(decisions)
+    
+    print("------------------applications------------------")
+    print(applications)
+    
+    total_applications_by_year = {}
 
+    for item in applications:
+        year = item['properties']['year']
+        applied = item['properties']['applied']
+        total_applications_by_year.setdefault(year, 0)
+        total_applications_by_year[year] += applied
+
+    # Printing the results
+    print("------------------ Total Applications by Year ------------------")
+    for year, total in sorted(total_applications_by_year.items()):
+        print(f"Year {year}: {total} applications")
+        
+    total_decisions_by_year = {}
+    
+    for item in decisions:
+        year = item['properties']['year']
+        dec_total = item['properties']['dec_closed']
+        dec_other = item['properties']['dec_other']
+        total_decisions_by_year.setdefault(year, 0)
+        total_decisions_by_year[year] += dec_total  + dec_other
+        
+    print("------------------ Total Decisions by Year ------------------")
+    for year, total in sorted(total_decisions_by_year.items()):
+        print(f"Year {year}: {total} decisions")
+        
+    print("------------------ Total Decisions by Year ------------------")
+    print(total_decisions_by_year)
+    
+    print("------------------ Total Applications by Year ------------------")
+    print(total_applications_by_year)
+    
+    total_male_by_year = {}
+    
+    for item in demographic:
+        year = item['properties']['year']
+        m_total = item['properties']['m_total']
+        total_male_by_year.setdefault(year, 0)
+        total_male_by_year[year] += m_total
+    
+    total_female_by_year = {}
+    
+    for item in demographic:
+        year = item['properties']['year']
+        f_total = item['properties']['f_total']
+        total_female_by_year.setdefault(year, 0)
+        total_female_by_year[year] += f_total
+        
+    print("-------total female by year-------")
+    print(total_female_by_year)
+    print("------total male by year---------")
+    print(total_male_by_year)
+        
+    
+    
+    def list_to_json(data_list):
+        try:
+            # Convert the Python list of dictionaries to a JSON string
+            data_json = json.dumps(data_list)
+            return data_json
+        except (TypeError, ValueError) as e:
+            return f"Error in conversion: {e}"
+    
+    new_applications = list_to_json(applications)
+    new_decisions = list_to_json(decisions)
+        
+        
     # Check if the request was successful (status code 200)
     if response.status_code == 200:
         # Print the response content
@@ -236,6 +320,12 @@ def home(request):
         "coordinates_list": formatted_coordinates_list,
         "coa_countries": coa_countries,
         "coo": coo_countries,
+        "decisions": new_decisions,
+        "applications": new_applications,
+        "total_decisions_by_year": total_decisions_by_year,
+        "total_applications_by_year": total_applications_by_year,
+        "total_female_by_year": total_female_by_year,
+        "total_male_by_year": total_male_by_year
     }
     context['coordinates_list_json'] = json.dumps(formatted_coordinates_list)
     return render(request, 'home.html', context)
