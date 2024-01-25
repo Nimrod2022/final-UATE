@@ -301,15 +301,7 @@ def home(request):
         coo_countries.add(entry['coo_name'])
         coa_countries.add(entry['coa_name'])
 
-    # # Convert sets to lists
-    # coo_countries_list = list(coo_countries)
-    # coa_countries_list = list(coa_countries)
-
-    # # Print or use the lists as needed
-    # print("Formatted Coordinates List:", formatted_coordinates_list)
-    # print("COO Countries List:", coo_countries_list)
-    # print("COA Countries List:", coa_countries_list)
-
+   
     
     
     context = {
