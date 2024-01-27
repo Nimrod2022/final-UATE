@@ -6,20 +6,20 @@ def home(request):
     year_param = request.GET.get('year') 
     print(year_param)
     if year_param:
-        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20decisions%20for%20Ukrainian%20applicants%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
-        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20applications%20for%20Ukrainians%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
-        baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian%20asylum%20applications%20demographic%20breakdown%20in%20Europe&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
+        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_decisions_final&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
+        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_applications_final&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
+        baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian_demographics_final&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
     else:
-        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20decisions%20for%20Ukrainian%20applicants%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
-        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20applications%20for%20Ukrainians%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
-        baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian%20asylum%20applications%20demographic%20breakdown%20in%20Europe&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
+        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_decisions_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
+        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_applications_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
+        baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian_demographics_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
 
     # Disable SSL verification (not recommended in production)
     response = requests.get(baseurl, verify=False)
     
-    all_data_base_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20decisions%20for%20Ukrainian%20applicants%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson"
-    all_applications_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum%20applications%20for%20Ukrainians%20in%20Europe%20%282013-2022%29&maxFeatures=50&outputFormat=application%2Fjson"
-    demographic_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian%20asylum%20applications%20demographic%20breakdown%20in%20Europe&maxFeatures=1000&outputFormat=application%2Fjson"
+    all_data_base_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_decisions_final&maxFeatures=1000&outputFormat=application%2Fjson"
+    all_applications_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_applications_final&maxFeatures=1000&outputFormat=application%2Fjson"
+    demographic_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian_demographics_final&maxFeatures=50&outputFormat=application%2Fjson"
     
     total_decisions_response = requests.get(all_data_base_url, verify=False)
     total_applications_response = requests.get(all_applications_url, verify=False)
