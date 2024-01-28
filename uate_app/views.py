@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import requests# Create your views here.
 import json
+from django.http import HttpResponse
 
 def home(request):
     year_param = request.GET.get('year') 
@@ -10,9 +11,9 @@ def home(request):
         baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_applications_final&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
         baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian_demographics_final&maxFeatures=50&outputFormat=application%2Fjson&CQL_FILTER=year=' + year_param
     else:
-        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_decisions_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
-        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_applications_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
-        baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian_demographics_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2020'
+        baseurl = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_decisions_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2022'
+        baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_applications_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2022'
+        baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian_demographics_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2022'
 
     # Disable SSL verification (not recommended in production)
     response = requests.get(baseurl, verify=False)
@@ -20,6 +21,7 @@ def home(request):
     all_data_base_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_decisions_final&maxFeatures=1000&outputFormat=application%2Fjson"
     all_applications_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_applications_final&maxFeatures=1000&outputFormat=application%2Fjson"
     demographic_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian_demographics_final&maxFeatures=50&outputFormat=application%2Fjson"
+
     
     total_decisions_response = requests.get(all_data_base_url, verify=False)
     total_applications_response = requests.get(all_applications_url, verify=False)
@@ -301,7 +303,21 @@ def home(request):
         coo_countries.add(entry['coo_name'])
         coa_countries.add(entry['coa_name'])
 
-   
+    # # Convert sets to lists
+    # coo_countries_list = list(coo_countries)
+    # coa_countries_list = list(coa_countries)
+
+    # # Print or use the lists as needed
+    # print("Formatted Coordinates List:", formatted_coordinates_list)
+    # print("COO Countries List:", coo_countries_list)
+    # print("COA Countries List:", coa_countries_list)
+    
+    tracking_cookie = request.COOKIES.get('tracking_cookie')
+    if request.method == 'POST' and 'accept_cookie' in request.POST:
+        response = HttpResponse("Data is being tracked.")
+        response.set_cookie('tracking_cookie', 'true')
+        return response
+
     
     
     context = {
@@ -317,7 +333,9 @@ def home(request):
         "total_decisions_by_year": total_decisions_by_year,
         "total_applications_by_year": total_applications_by_year,
         "total_female_by_year": total_female_by_year,
-        "total_male_by_year": total_male_by_year
+        "total_male_by_year": total_male_by_year,
+        "tracking_cookie": tracking_cookie,
     }
     context['coordinates_list_json'] = json.dumps(formatted_coordinates_list)
+    
     return render(request, 'home.html', context)
