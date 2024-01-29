@@ -23,13 +23,10 @@
     <form
       id="yearForm"
       method="GET"
-      class="mx-auto my-3 font-semibold text-xl w-[32%]"
+      class="mx-auto my-3 font-semibold text-xl w-[50%] md:w-[32%]"
     >
       <label for="year">Year:</label>
       <select id="year" name="year">
-        <option value="2010">2010</option>
-        <option value="2011">2011</option>
-        <option value="2012">2012</option>
         <option value="2013">2013</option>
         <option value="2014">2014</option>
         <option value="2015">2015</option>
@@ -43,8 +40,10 @@
         <!-- Add more options for different years as needed -->
       </select>
     </form>
-    <div class="flex justify-between">
-      <div class="w-2/4 p-10 h-screen overflow-y-auto bg-[#f8f8fc] rounded-md">
+    <div class="flex md:flex-row flex-col justify-between">
+      <div
+        class="md:w-2/4 p-10 h-screen overflow-y-auto bg-[#f8f8fc] rounded-md"
+      >
         <div>
           <p id="selectedYear" class="my-3">
             Selected Year: <span id="displayYear"></span>
@@ -127,510 +126,506 @@
     {% endif %} {% endcomment %}
 
     <script type="text/javascript">
-                                                    var map;
-                                                                var ukraineCoords = { lat: 48.3794, lng: 31.1656 }; // Approximate coordinates for Ukraine
+                                              var map;
+                                                          var ukraineCoords = { lat: 48.3794, lng: 31.1656 }; // Approximate coordinates for Ukraine
 
-                                                                var coordinatesList = JSON.parse(
-                                                                  "{{ coordinates_list_json|safe|escapejs }}"
-                                                                );
-                                                                console.log("----coordinatesList----")
+                                                          var coordinatesList = JSON.parse(
+                                                            "{{ coordinates_list_json|safe|escapejs }}"
+                                                          );
+                                                          console.log("----coordinatesList----")
 
-                                                                console.log(coordinatesList);
-                                                                function initMap() {
-                                                                  // New map
-                                                                  map = new google.maps.Map(document.getElementById("map"), {
-                                                                    zoom: 4,
-                                                                    center: { lat: 54.526, lng: 15.2551 }, // Central point of Europe
-                                                                  });
+                                                          console.log(coordinatesList);
+                                                          function initMap() {
+                                                            // New map
+                                                            map = new google.maps.Map(document.getElementById("map"), {
+                                                              zoom: 4,
+                                                              center: { lat: 54.526, lng: 15.2551 }, // Central point of Europe
+                                                            });
 
-                                                                  // Extend bounds for each marker
-                                                                  var bounds = new google.maps.LatLngBounds();
-                                                                  for (var i = 0; i < coordinatesList.length; i++) {
-                                                                    addMarker(coordinatesList[i]);
-                                                                  }
+                                                            // Extend bounds for each marker
+                                                            var bounds = new google.maps.LatLngBounds();
+                                                            for (var i = 0; i < coordinatesList.length; i++) {
+                                                              addMarker(coordinatesList[i]);
+                                                            }
 
-                                                                  addUkMarker({ coords: ukraineCoords });
+                                                            addUkMarker({ coords: ukraineCoords });
 
-                                                                  // Add Marker Function
-                                                                  ;
-                                                                  function addMarker(props) {
-                                                                    var marker = new google.maps.Marker({
-                                                                      position: props.coords,
-                                                                      map: map,
-                                                                      icon: {
-                                                                        url: "{% static 'images/location-icon.png' %}",
-                                                                        scaledSize: new google.maps.Size(40, 40), // You can adjust the size
-                                                                      },
-                                                                    });
+                                                            // Add Marker Function
+                                                            ;
+                                                            function addMarker(props) {
+                                                              var marker = new google.maps.Marker({
+                                                                position: props.coords,
+                                                                map: map,
+                                                                icon: {
+                                                                  url: "{% static 'images/location-icon.png' %}",
+                                                                  scaledSize: new google.maps.Size(40, 40), // You can adjust the size
+                                                                },
+                                                              });
 
-                                                                    console.log(props);
+                                                              console.log(props);
 
-                                                                    // Check content
-                                                                    if (props.content) {
-                                                                      var infoWindow = new google.maps.InfoWindow({
-                                                                        content: props.content,
-                                                                      });
+                                                              // Check content
+                                                              if (props.content) {
+                                                                var infoWindow = new google.maps.InfoWindow({
+                                                                  content: props.content,
+                                                                });
 
 
-                                                                      marker.addListener("click", function () {
-                                                                        // Update card content
+                                                                marker.addListener("click", function () {
+                                                                  // Update card content
 
-                                                                        updateInfoCard(props.card_data);
-                                                                        drawLineToUkraine(props.coords);
-                                                                        showInfoContent1();
-                                                                        hideSummary();
+                                                                  updateInfoCard(props.card_data);
+                                                                  drawLineToUkraine(props.coords);
+                                                                  showInfoContent1();
+                                                                  hideSummary();
 
-                                                                        hideLineGraphs();
-                                                                      });
-                                                                    }
+                                                                  hideLineGraphs();
+                                                                });
+                                                              }
 
-                                                                    // Extend the bounds to include each marker's position
-                                                                    bounds.extend(marker.position);
-                                                                  }
+                                                              // Extend the bounds to include each marker's position
+                                                              bounds.extend(marker.position);
+                                                            }
 
-                                                                  function addUkMarker(props) {
-                                      var marker = new google.maps.Marker({
-                                          position: props.coords,
-                                          map: map,
-                                          icon: {
-                                              url: "{% static 'images/Ukraine-icon.png' %}",
-                                              scaledSize: new google.maps.Size(40, 40) // You can adjust the size
-                                          }
-                                      });
+                                                            function addUkMarker(props) {
+                                var marker = new google.maps.Marker({
+                                    position: props.coords,
+                                    map: map,
+                                    icon: {
+                                        url: "{% static 'images/Ukraine-icon.png' %}",
+                                        scaledSize: new google.maps.Size(40, 40) // You can adjust the size
+                                    }
+                                });
 
-                                      // ... rest of your existing code
-                                  }
+                                // ... rest of your existing code
+                            }
 
-                                                                  // Now fit the map to the newly inclusive bounds
-                                                                  map.fitBounds(bounds);
+                                                            // Now fit the map to the newly inclusive bounds
+                                                            map.fitBounds(bounds);
+                                                          }
+
+
+                                                          function updateInfoCard(data) {
+                                                            console.log(data);
+                                                            var card = document.getElementById("info-card");
+                                                             let malePercentage = Math.round((data.m_total / (data.f_total + data.m_total)) * 100);
+                                                                if (isNaN(malePercentage)) {
+                                                                    malePercentage = 'No data available';
+                                                                } else{
+                                                                  malePercentage = `${Math.round((data.m_total / (data.f_total + data.m_total)) * 100)} %`;
+                                                                }
+
+                                                              let femalePercentage = Math.round((data.f_total / (data.f_total + data.m_total)) * 100);
+                                                                if (isNaN(femalePercentage)) {
+                                                                    femalePercentage = 'No data available';
+                                                                } else{
+                                                                  femalePercentage =`${Math.round((data.f_total / (data.f_total + data.m_total)) * 100)} %`;
                                                                 }
 
 
-                                                                function updateInfoCard(data) {
-                                                                  console.log(data);
-                                                                  var card = document.getElementById("info-card");
-                                                                   let malePercentage = Math.round((data.m_total / (data.f_total + data.m_total)) * 100);
-                                                                      if (isNaN(malePercentage)) {
-                                                                          malePercentage = 'No data available';
-                                                                      } else{
-                                                                        malePercentage = `${Math.round((data.m_total / (data.f_total + data.m_total)) * 100)} %`;
-                                                                      }
-
-                                                                    let femalePercentage = Math.round((data.f_total / (data.f_total + data.m_total)) * 100);
-                                                                      if (isNaN(femalePercentage)) {
-                                                                          femalePercentage = 'No data available';
-                                                                      } else{
-                                                                        femalePercentage =`${Math.round((data.f_total / (data.f_total + data.m_total)) * 100)} %`;
-                                                                      }
 
 
 
+                                                              let applications = data.applied;
+                                                              if (applications==null) {
+                                                                applications = 'No data available';
+                                                              } else{
+                                                                applications = data.applied;
+                                                              }
+                                                            card.style.display = "block";
+                                                            card.innerHTML = `
+                                                            <h1 class="text-blue-500 font-bold text-2xl uppercase">${data.coa_name}</h1>
+                                                            <p class="font-medium text-blue-500 text-2xl">${data.year}</p>
+                                                            <div class="h-[2px] bg-blue-500 mt-3 w-[100%]"></div>
 
 
-                                                                    let applications = data.applied;
-                                                                    if (applications==null) {
-                                                                      applications = 'No data available';
-                                                                    } else{
-                                                                      applications = data.applied;
-                                                                    }
-                                                                  card.style.display = "block";
-                                                                  card.innerHTML = `
-                                                                  <h1 class="text-blue-500 font-bold text-2xl uppercase">${data.coa_name}</h1>
-                                                                  <p class="font-medium text-blue-500 text-2xl">${data.year}</p>
-                                                                  <div class="h-[2px] bg-blue-500 mt-3 w-[100%]"></div>
+                                                            <div class="flex gap-5 items-center mt-3">
+                                                              <h2 class="text-blue-500 text-4xl">${applications}<h2>
+                                                              <p class="text-2xl">applications</p>
+                                                            </div>
 
-
-                                                                  <div class="flex gap-5 items-center mt-3">
-                                                                    <h2 class="text-blue-500 text-4xl">${applications}<h2>
-                                                                    <p class="text-2xl">applications</p>
-                                                                  </div>
-
-                                                                  <p class="pt-2 text-center font-semibold"> Male vs Female Total </p>
+                                                            <p class="pt-2 text-center font-semibold"> Male vs Female Total </p>
 
 
 
-                                                                  <canvas id="pyChart"></canvas>
+                                                            <canvas id="pyChart"></canvas>
 
 
 
 
 
-                                                              <p class="py-2 font-semibold text-center"> Applications vs Decisions </p>
+                                                        <p class="py-2 font-semibold text-center"> Applications vs Decisions </p>
 
 
 
-                                                                <canvas id="decChart"></canvas>
+                                                          <canvas id="decChart"></canvas>
 
 
 
-                                                                  `;
+                                                            `;
 
 
 
 
-                          var ctx = document.getElementById("pyChart").getContext("2d");
+                    var ctx = document.getElementById("pyChart").getContext("2d");
 
-            // Create the data for the chart
-            var pchartData = {
-              labels: ["Female", "Male"],
-              datasets: [
-                {
-                  data: [
-                    Math.round((data.f_total / (data.f_total + data.m_total)) * 100),
-                    Math.round((data.m_total / (data.f_total + data.m_total)) * 100),
-                  ],
-                  backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)"],
-                  borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
-                  borderWidth: 1,
-                },
-              ],
-            };
-
-            // Create and display the chart as a pie chart
-            var pyChart = new Chart(ctx, {
-              type: "pie",
-              data: pchartData,
-              options: {
-                plugins: {
-                  legend: {
-                    display: true,
-                    position: "right", // You can adjust the legend position
-                  },
-                },
-              },
-            });
-
-
-
-                           var ctx = document.getElementById("decChart").getContext("2d");
-
-
-
-                          // Create the data for the chart
-                          var chartData = {
-        labels: ["Applications", "Decisions"],
+      // Create the data for the chart
+      var pchartData = {
+        labels: ["Female", "Male"],
         datasets: [
           {
-            label: "Applications",
-            data: [Math.round(data.applied)],
-            backgroundColor: ["rgba(255, 99, 132, 0.5)"],
-            borderColor: ["rgba(255, 99, 132, 1)"],
-            borderWidth: 1
+            data: [
+              Math.round((data.f_total / (data.f_total + data.m_total)) * 100),
+              Math.round((data.m_total / (data.f_total + data.m_total)) * 100),
+            ],
+            backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)"],
+            borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+            borderWidth: 1,
           },
-          {
-            label: "Decisions",
-            data: [Math.round(data.dec_closed + data.dec_other)],
-            backgroundColor: ["rgba(54, 162, 235, 0.5)"],
-            borderColor: ["rgba(54, 162, 235, 1)"],
-            borderWidth: 1
-          }
-        ]
+        ],
       };
 
-                          // Create and display the chart
-                          var myChart = new Chart(ctx, {
-                            type: "bar",
-                            data: chartData,
-                            options: {
-                              scales: {
-                                y: {
-                                  beginAtZero: true,
-                                  max: data.applied,
-                                },
-                              },
-                            },
-                          });
+      // Create and display the chart as a pie chart
+      var pyChart = new Chart(ctx, {
+        type: "pie",
+        data: pchartData,
+        options: {
+          plugins: {
+            legend: {
+              display: true,
+              position: "right", // You can adjust the legend position
+            },
+          },
+        },
+      });
 
 
 
+                     var ctx = document.getElementById("decChart").getContext("2d");
 
 
 
-                                                                }
-                                                                var currentLine = null;
-                                                              function drawLineToUkraine(coaCoords) {
-                                            if (currentLine) {
-                                                currentLine.setMap(null); // Remove existing line if present
-                                            }
-
-                                            var lineSymbol = {
-                                                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                                            };
-
-                                            var line = new google.maps.Polyline({
-                                                path: [ukraineCoords, coaCoords],
-                                                icons: [{
-                                                    icon: lineSymbol,
-                                                    offset: '0%'
-                                                }],
-                                                map: map,
-                                                geodesic: true,
-                                                strokeColor: "red",
-                                                strokeOpacity: 1.0,
-                                                strokeWeight: 2,
-                                            });
-
-                                            currentLine = line; // Update current line
-
-                                            animateArrow(line); // Call the function to animate the arrow
-                                        }
-
-                                        function animateArrow(line) {
-                                            var count = 0;
-                                            window.setInterval(function() {
-                                                count = (count + 1) % 200; // Adjust speed and loop
-
-                                                var icons = line.get('icons');
-                                                icons[0].offset = (count / 2) + '%'; // Move the icon
-                                                line.set('icons', icons);
-                                            }, 20); // Adjust for speed
-                                        }
-
-
-                                                                {% comment %} function drawDemo() {
-                                                  function drawLine(startCoords, endCoords) {
-                                                      const line = new google.maps.Polyline({
-                                                          path: [startCoords, endCoords],
-                                                          geodesic: true,
-                                                          strokeColor: 'red',
-                                                          strokeOpacity: 1.0,
-                                                          strokeWeight: 2,
-                                                      });
-
-                                                      line.setMap(map);
-                                                  }
-
-                                                  const startCoords = { lat: 47.516231, lng: 14.550072 };
-                                                  const endCoords = { lat: 46.227638, lng: 2.213749 };
-                                                  drawLine(startCoords, endCoords);
-                                              } {% endcomment %}
-
-                                              function updateYear() {
-                                var selectedYear = document.getElementById("year").value;
-                                var currentUrl = window.location.href;
-
-                                // Replace the existing year parameter in the URL with the selected year
-                                var updatedUrl = currentUrl.replace(/year=\d{4}/, "year=" + selectedYear);
-
-                                // Redirect to the updated URL
-                                window.location.href = updatedUrl;
-                              }
-
-                            function showInfoContent1() {
-                                let infoContent1 = document.getElementById("infoContent1");
-                                let infoContent2 = document.getElementById("infoContent2");
-
-                                let infoBtn1 = document.getElementById("infoBtn1");
-                                let infoBtn2 = document.getElementById("infoBtn2");
-
-                                infoContent2.classList.add("hidden");
-                                infoContent1.classList.remove("hidden");
-                                infoBtn1.classList.add("bg-red-500");
-                                infoBtn2.classList.remove("bg-red-500");
-
-
-                            }
-
-                            function showInfoContent2() {
-                                let infoContent1 = document.getElementById("infoContent1");
-                                let infoContent2 = document.getElementById("infoContent2");
-
-                                let infoBtn1 = document.getElementById("infoBtn1");
-                                let infoBtn2 = document.getElementById("infoBtn2");
-
-                                infoContent1.classList.add("hidden");
-                                infoContent2.classList.remove("hidden");
-                                infoBtn2.classList.add("bg-red-500");
-                                infoBtn1.classList.remove("bg-red-500");
-
-                              showSummary();
-
-                            }
-
-                            function hideLineGraphs() {
-                                let lineGraphs = document.getElementById("LineChart");
-                                let line2Graphs = document.getElementById("Line2Chart");
-                                lineGraphs.classList.add("hidden");
-                                line2Graphs.classList.add("hidden");
-
-                            }
-
-                         let litx = document.getElementById("LineChart").getContext("2d");
-
-                        // Preprocess the data from "applications" and "decisions"
-                        let applicationData = "{{ applications | safe | escapejs }}";
-                        let newApplicationData;
-                        let decisionData = "{{ decisions | safe | escapejs }}";
-                        let newDecisionData;
-
-                        try {
-                            // If the data is a JSON string, this will parse it into a JavaScript object
-                            newApplicationData = JSON.parse(applicationData);
-                            console.log("----newApplicationData----");
-                            console.log(newApplicationData);
-                            newDecisionData = JSON.parse(decisionData);
-                            console.log("----newDecisionData----");
-                            console.log(newDecisionData);
-                        } catch (e) {
-                            // If there was an error parsing, the data might already be a JavaScript object
-                            console.error("Error parsing data: ", e);
-                            newApplicationData = applicationData;
-                            newDecisionData = decisionData;
-                        }
-                        console.log("------newApplicationData------");
-                        console.log(newApplicationData);
-                        console.log("------newDecisionData------");
-                        console.log(newDecisionData);
-
-
-                        // Extract the relevant data for the chart
-                        let labels = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021","2022"];
-
-
-                        // Create the data for the chart
-                        let lchartData = {
-                          labels: labels,
-                          datasets: [
-                            {
-                              label: "Decisions",
-                              data: [{{ total_decisions_by_year.2013 }}, {{ total_decisions_by_year.2014 }}, {{ total_decisions_by_year.2015 }}, {{ total_decisions_by_year.2016 }}, {{ total_decisions_by_year.2017 }}, {{ total_decisions_by_year.2018 }}, {{ total_decisions_by_year.2019 }}, {{ total_decisions_by_year.2020 }}, {{ total_decisions_by_year.2021 }}, {{ total_decisions_by_year.2022 }}],
-                              backgroundColor: "rgba(255, 99, 132, 0.5)",
-                              borderColor: "rgba(255, 99, 132, 1)",
-                              borderWidth: 1,
-                            },
-                            {
-                              label: "applications",
-                              data: [{{ total_applications_by_year.2013 }}, {{ total_applications_by_year.2014 }}, {{ total_applications_by_year.2015 }}, {{ total_applications_by_year.2016 }}, {{ total_applications_by_year.2017 }}, {{ total_applications_by_year.2018 }}, {{ total_applications_by_year.2019 }}, {{ total_applications_by_year.2020 }}, {{ total_applications_by_year.2021 }}, {{ total_applications_by_year.2022 }}],
-                              backgroundColor: "rgba(54, 162, 235, 0.5)",
-                              borderColor: "rgba(54, 162, 235, 1)",
-                              borderWidth: 1,
-                            },
+                    // Create the data for the chart
+                    var chartData = {
+                      labels: ["Applications", "Decisions"],
+                      datasets: [
+                        {
+                          label: "",
+                          data: [
+                            Math.round(data.applied),
+                            Math.round(data.dec_closed+ data.dec_other),
                           ],
-                        };
-
-                        // Create and display the chart as a line chart
-                        let myLineChart = new Chart(litx, {
-                          type: "line",
-                          data: lchartData,
-                          options: {
-                            scales: {
-                              y: {
-                                beginAtZero: true,
-                              },
-                            },
-                          },
-                        });
-
-                         let linetx = document.getElementById("Line2Chart").getContext("2d");
-
-                         let secondlabels = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021"];
-
-
-                        // Create the data for the chart
-                        let linchartData = {
-                          labels: labels,
-                          datasets: [
-                            {
-                              label: "Female",
-                              data: [{{ total_female_by_year.2013 }}, {{ total_female_by_year.2014 }}, {{ total_female_by_year.2015 }}, {{ total_female_by_year.2016 }}, {{ total_female_by_year.2017 }}, {{ total_female_by_year.2018 }}, {{ total_female_by_year.2019 }}, {{ total_female_by_year.2020 }}, {{ total_female_by_year.2021 }}],
-                              backgroundColor: "rgba(255, 99, 132, 0.5)",
-                              borderColor: "rgba(255, 99, 132, 1)",
-                              borderWidth: 1,
-                            },
-                            {
-                              label: "male",
-                              data: [{{ total_male_by_year.2013 }}, {{ total_male_by_year.2014 }}, {{ total_male_by_year.2015 }}, {{ total_male_by_year.2016 }}, {{ total_male_by_year.2017 }}, {{ total_male_by_year.2018 }}, {{ total_male_by_year.2019 }}, {{ total_male_by_year.2020 }}, {{ total_male_by_year.2021 }}],
-                              backgroundColor: "rgba(54, 162, 235, 0.5)",
-                              borderColor: "rgba(54, 162, 235, 1)",
-                              borderWidth: 1,
-                            },
-                          ],
-                        };
-
-                        // Create and display the chart as a line chart
-                        let myLine2Chart = new Chart(linetx, {
-                          type: "line",
-                          data: linchartData,
-                          options: {
-                            scales: {
-                              y: {
-                                beginAtZero: true,
-                              },
-                            },
-                          },
-                        });
-
-
-
-
-
-                        console.log(["{{ total_decisions_by_year.2013 }}, {{ total_decisions_by_year.2014 }}, {{ total_decisions_by_year.2015 }}, {{ total_decisions_by_year.2016 }}, {{ total_decisions_by_year.2017 }}, {{ total_decisions_by_year.2018 }}, {{ total_decisions_by_year.2019 }}, {{ total_decisions_by_year.2020 }}, {{ total_decisions_by_year.2021 }}, {{ total_decisions_by_year.2022 }}"]);
-                        console.log("{{total_decisions_by_year.2013 }}");
-
-
-                        document.addEventListener("DOMContentLoaded", function () {
-                          let infoContent1 = document.getElementById("infoContent1");
-                                let infoContent2 = document.getElementById("infoContent2");
-
-                                let infoBtn1 = document.getElementById("infoBtn1");
-                                let infoBtn2 = document.getElementById("infoBtn2");
-
-                                infoContent1.classList.add("hidden");
-                                infoContent2.classList.remove("hidden");
-                                infoBtn2.classList.add("bg-red-500");
-                                infoBtn1.classList.remove("bg-red-500");
-                                var yearSelect = document.getElementById("year");
-                    var displayYear = document.getElementById("displayYear");
-
-                    // Function to get URL parameters
-                    function getUrlParameter(name) {
-                        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-                        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-                        var results = regex.exec(location.search);
-                        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+                          backgroundColor: ["rgba(255, 99, 132, 0.5)", "rgba(54, 162, 235, 0.5)", "rgba(255, 206, 86, 0.5)", "rgba(75, 192, 192, 0.5)"],
+                          borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)", "rgba(255, 206, 86, 1)", "rgba(75, 192, 192, 1)"],
+                          borderWidth: 1,
+                        },
+                      ],
                     };
 
-                    // Function to update the displayed year
-                    function updateDisplayedYear(year) {
-                        displayYear.textContent = year;
-                    }
-
-                    // Get 'year' parameter from URL
-                    var selectedYear = getUrlParameter('year');
-                    console.log(selectedYear);
-
-                    // Set the select dropdown value if the year parameter exist
-                    if (selectedYear==""){
-                      yearSelect.value=2022;
-                      updateDisplayedYear(2022);
-                    }
-                    if (selectedYear) {
-                        yearSelect.value = selectedYear;
-                        updateDisplayedYear(selectedYear);
-                    } else {
-                        // Update displayed year with the default select value
-                        updateDisplayedYear(yearSelect.value);
-                    }
-
-                    // Add an event listener for the change event
-                    yearSelect.addEventListener("change", function() {
-                        // Update the displayed year
-                        updateDisplayedYear(yearSelect.value);
-
-                        // Update URL with the selected year
-                        window.location.search = 'year=' + yearSelect.value;
+                    // Create and display the chart
+                    var myChart = new Chart(ctx, {
+                      type: "bar",
+                      data: chartData,
+                      options: {
+                        scales: {
+                          y: {
+                            beginAtZero: true,
+                            max: data.applied,
+                          },
+                        },
+                      },
                     });
 
-                        });
-                        function hideSummary() {
-                        let summary = document.querySelector(".summary");
-                        summary.classList.add("hidden");
-                    }
 
-                    function showSummary() {
-                        let summary = document.querySelector(".summary");
-                        summary.classList.remove("hidden");
-                    }
+
+
+
+
+                                                          }
+                                                          var currentLine = null;
+                                                        function drawLineToUkraine(coaCoords) {
+                                      if (currentLine) {
+                                          currentLine.setMap(null); // Remove existing line if present
+                                      }
+
+                                      var lineSymbol = {
+                                          path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                                      };
+
+                                      var line = new google.maps.Polyline({
+                                          path: [ukraineCoords, coaCoords],
+                                          icons: [{
+                                              icon: lineSymbol,
+                                              offset: '0%'
+                                          }],
+                                          map: map,
+                                          geodesic: true,
+                                          strokeColor: "red",
+                                          strokeOpacity: 1.0,
+                                          strokeWeight: 2,
+                                      });
+
+                                      currentLine = line; // Update current line
+
+                                      animateArrow(line); // Call the function to animate the arrow
+                                  }
+
+                                  function animateArrow(line) {
+                                      var count = 0;
+                                      window.setInterval(function() {
+                                          count = (count + 1) % 200; // Adjust speed and loop
+
+                                          var icons = line.get('icons');
+                                          icons[0].offset = (count / 2) + '%'; // Move the icon
+                                          line.set('icons', icons);
+                                      }, 20); // Adjust for speed
+                                  }
+
+
+                                                          {% comment %} function drawDemo() {
+                                            function drawLine(startCoords, endCoords) {
+                                                const line = new google.maps.Polyline({
+                                                    path: [startCoords, endCoords],
+                                                    geodesic: true,
+                                                    strokeColor: 'red',
+                                                    strokeOpacity: 1.0,
+                                                    strokeWeight: 2,
+                                                });
+
+                                                line.setMap(map);
+                                            }
+
+                                            const startCoords = { lat: 47.516231, lng: 14.550072 };
+                                            const endCoords = { lat: 46.227638, lng: 2.213749 };
+                                            drawLine(startCoords, endCoords);
+                                        } {% endcomment %}
+
+                                        function updateYear() {
+                          var selectedYear = document.getElementById("year").value;
+                          var currentUrl = window.location.href;
+
+                          // Replace the existing year parameter in the URL with the selected year
+                          var updatedUrl = currentUrl.replace(/year=\d{4}/, "year=" + selectedYear);
+
+                          // Redirect to the updated URL
+                          window.location.href = updatedUrl;
+                        }
+
+                      function showInfoContent1() {
+                          let infoContent1 = document.getElementById("infoContent1");
+                          let infoContent2 = document.getElementById("infoContent2");
+
+                          let infoBtn1 = document.getElementById("infoBtn1");
+                          let infoBtn2 = document.getElementById("infoBtn2");
+
+                          infoContent2.classList.add("hidden");
+                          infoContent1.classList.remove("hidden");
+                          infoBtn1.classList.add("bg-[#1f2a38]");
+                          infoBtn2.classList.remove("bg-[#1f2a38]");
+
+
+                      }
+
+                      function showInfoContent2() {
+                          let infoContent1 = document.getElementById("infoContent1");
+                          let infoContent2 = document.getElementById("infoContent2");
+
+                          let infoBtn1 = document.getElementById("infoBtn1");
+                          let infoBtn2 = document.getElementById("infoBtn2");
+
+                          infoContent1.classList.add("hidden");
+                          infoContent2.classList.remove("hidden");
+                          infoBtn2.classList.add("bg-[#1f2a38]");
+                          infoBtn1.classList.remove("bg-[#1f2a38]");
+
+                        showSummary();
+
+                      }
+
+                      function hideLineGraphs() {
+                          let lineGraphs = document.getElementById("LineChart");
+                          let line2Graphs = document.getElementById("Line2Chart");
+                          lineGraphs.classList.add("hidden");
+                          line2Graphs.classList.add("hidden");
+
+                      }
+
+                   let litx = document.getElementById("LineChart").getContext("2d");
+
+                  // Preprocess the data from "applications" and "decisions"
+                  let applicationData = "{{ applications | safe | escapejs }}";
+                  let newApplicationData;
+                  let decisionData = "{{ decisions | safe | escapejs }}";
+                  let newDecisionData;
+
+                  try {
+                      // If the data is a JSON string, this will parse it into a JavaScript object
+                      newApplicationData = JSON.parse(applicationData);
+                      console.log("----newApplicationData----");
+                      console.log(newApplicationData);
+                      newDecisionData = JSON.parse(decisionData);
+                      console.log("----newDecisionData----");
+                      console.log(newDecisionData);
+                  } catch (e) {
+                      // If there was an error parsing, the data might already be a JavaScript object
+                      console.error("Error parsing data: ", e);
+                      newApplicationData = applicationData;
+                      newDecisionData = decisionData;
+                  }
+                  console.log("------newApplicationData------");
+                  console.log(newApplicationData);
+                  console.log("------newDecisionData------");
+                  console.log(newDecisionData);
+
+
+                  // Extract the relevant data for the chart
+                  let labels = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021","2022"];
+
+
+                  // Create the data for the chart
+                  let lchartData = {
+                    labels: labels,
+                    datasets: [
+                      {
+                        label: "Decisions",
+                        data: [{{ total_decisions_by_year.2013 }}, {{ total_decisions_by_year.2014 }}, {{ total_decisions_by_year.2015 }}, {{ total_decisions_by_year.2016 }}, {{ total_decisions_by_year.2017 }}, {{ total_decisions_by_year.2018 }}, {{ total_decisions_by_year.2019 }}, {{ total_decisions_by_year.2020 }}, {{ total_decisions_by_year.2021 }}, {{ total_decisions_by_year.2022 }}],
+                        backgroundColor: "rgba(255, 99, 132, 0.5)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1,
+                      },
+                      {
+                        label: "applications",
+                        data: [{{ total_applications_by_year.2013 }}, {{ total_applications_by_year.2014 }}, {{ total_applications_by_year.2015 }}, {{ total_applications_by_year.2016 }}, {{ total_applications_by_year.2017 }}, {{ total_applications_by_year.2018 }}, {{ total_applications_by_year.2019 }}, {{ total_applications_by_year.2020 }}, {{ total_applications_by_year.2021 }}, {{ total_applications_by_year.2022 }}],
+                        backgroundColor: "rgba(54, 162, 235, 0.5)",
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        borderWidth: 1,
+                      },
+                    ],
+                  };
+
+                  // Create and display the chart as a line chart
+                  let myLineChart = new Chart(litx, {
+                    type: "line",
+                    data: lchartData,
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true,
+                        },
+                      },
+                    },
+                  });
+
+                   let linetx = document.getElementById("Line2Chart").getContext("2d");
+
+                   let secondlabels = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021"];
+
+
+                  // Create the data for the chart
+                  let linchartData = {
+                    labels: labels,
+                    datasets: [
+                      {
+                        label: "Female",
+                        data: [{{ total_female_by_year.2013 }}, {{ total_female_by_year.2014 }}, {{ total_female_by_year.2015 }}, {{ total_female_by_year.2016 }}, {{ total_female_by_year.2017 }}, {{ total_female_by_year.2018 }}, {{ total_female_by_year.2019 }}, {{ total_female_by_year.2020 }}, {{ total_female_by_year.2021 }}],
+                        backgroundColor: "rgba(255, 99, 132, 0.5)",
+                        borderColor: "rgba(255, 99, 132, 1)",
+                        borderWidth: 1,
+                      },
+                      {
+                        label: "male",
+                        data: [{{ total_male_by_year.2013 }}, {{ total_male_by_year.2014 }}, {{ total_male_by_year.2015 }}, {{ total_male_by_year.2016 }}, {{ total_male_by_year.2017 }}, {{ total_male_by_year.2018 }}, {{ total_male_by_year.2019 }}, {{ total_male_by_year.2020 }}, {{ total_male_by_year.2021 }}],
+                        backgroundColor: "rgba(54, 162, 235, 0.5)",
+                        borderColor: "rgba(54, 162, 235, 1)",
+                        borderWidth: 1,
+                      },
+                    ],
+                  };
+
+                  // Create and display the chart as a line chart
+                  let myLine2Chart = new Chart(linetx, {
+                    type: "line",
+                    data: linchartData,
+                    options: {
+                      scales: {
+                        y: {
+                          beginAtZero: true,
+                        },
+                      },
+                    },
+                  });
+
+
+
+
+
+                  console.log(["{{ total_decisions_by_year.2013 }}, {{ total_decisions_by_year.2014 }}, {{ total_decisions_by_year.2015 }}, {{ total_decisions_by_year.2016 }}, {{ total_decisions_by_year.2017 }}, {{ total_decisions_by_year.2018 }}, {{ total_decisions_by_year.2019 }}, {{ total_decisions_by_year.2020 }}, {{ total_decisions_by_year.2021 }}, {{ total_decisions_by_year.2022 }}"]);
+                  console.log("{{total_decisions_by_year.2013 }}");
+
+
+                  document.addEventListener("DOMContentLoaded", function () {
+                    let infoContent1 = document.getElementById("infoContent1");
+                          let infoContent2 = document.getElementById("infoContent2");
+
+                          let infoBtn1 = document.getElementById("infoBtn1");
+                          let infoBtn2 = document.getElementById("infoBtn2");
+
+                          infoContent1.classList.add("hidden");
+                          infoContent2.classList.remove("hidden");
+                          infoBtn2.classList.add("bg-[#1f2a38]");
+                          infoBtn1.classList.remove("bg-[#1f2a38]");
+                          var yearSelect = document.getElementById("year");
+              var displayYear = document.getElementById("displayYear");
+
+              // Function to get URL parameters
+              function getUrlParameter(name) {
+                  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+                  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+                  var results = regex.exec(location.search);
+                  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+              };
+
+              // Function to update the displayed year
+              function updateDisplayedYear(year) {
+                  displayYear.textContent = year;
+              }
+
+              // Get 'year' parameter from URL
+              var selectedYear = getUrlParameter('year');
+              console.log(selectedYear);
+
+              // Set the select dropdown value if the year parameter exist
+              if (selectedYear==""){
+                yearSelect.value=2022;
+                updateDisplayedYear(2022);
+              }
+              if (selectedYear) {
+                  yearSelect.value = selectedYear;
+                  updateDisplayedYear(selectedYear);
+              } else {
+                  // Update displayed year with the default select value
+                  updateDisplayedYear(yearSelect.value);
+              }
+
+              // Add an event listener for the change event
+              yearSelect.addEventListener("change", function() {
+                  // Update the displayed year
+                  updateDisplayedYear(yearSelect.value);
+
+                  // Update URL with the selected year
+                  window.location.search = 'year=' + yearSelect.value;
+              });
+
+                  });
+                  function hideSummary() {
+                  let summary = document.querySelector(".summary");
+                  summary.classList.add("hidden");
+              }
+
+              function showSummary() {
+                  let summary = document.querySelector(".summary");
+                  summary.classList.remove("hidden");
+              }
     </script>
   </body>
 </html>
