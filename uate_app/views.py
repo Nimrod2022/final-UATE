@@ -1,5 +1,6 @@
+# Create your views here.
 from django.shortcuts import render
-import requests# Create your views here.
+import requests
 import json
 from django.http import HttpResponse
 
@@ -26,22 +27,18 @@ def home(request):
     total_decisions_response = requests.get(all_data_base_url, verify=False)
     total_applications_response = requests.get(all_applications_url, verify=False)
     total_demographic_response = requests.get(demographic_url, verify=False)
-    print('------------------total_applications_response------------------')
     new_total_decisions_response= total_decisions_response.text
     new_total_applications_response = total_applications_response.text
     new_total_demographic_response = total_demographic_response.text
     new_total_decisions_response_obj = json.loads(new_total_decisions_response)
     new_total_applications_response_obj = json.loads(new_total_applications_response)
     new_total_demographic_response_obj = json.loads(new_total_demographic_response)
-    print("-----")
     decisions = new_total_decisions_response_obj.get("features")
     applications = new_total_applications_response_obj.get("features")
     demographic = new_total_demographic_response_obj.get("features")
     print(decisions)
     
-    print("------------------applications------------------")
-    print(applications)
-    
+    print(applications)    
     total_applications_by_year = {}
 
     for item in applications:
@@ -51,7 +48,6 @@ def home(request):
         total_applications_by_year[year] += applied
 
     # Printing the results
-    print("------------------ Total Applications by Year ------------------")
     for year, total in sorted(total_applications_by_year.items()):
         print(f"Year {year}: {total} applications")
         
@@ -64,14 +60,11 @@ def home(request):
         total_decisions_by_year.setdefault(year, 0)
         total_decisions_by_year[year] += dec_total  + dec_other
         
-    print("------------------ Total Decisions by Year ------------------")
     for year, total in sorted(total_decisions_by_year.items()):
         print(f"Year {year}: {total} decisions")
         
-    print("------------------ Total Decisions by Year ------------------")
     print(total_decisions_by_year)
     
-    print("------------------ Total Applications by Year ------------------")
     print(total_applications_by_year)
     
     total_male_by_year = {}
@@ -90,9 +83,7 @@ def home(request):
         total_female_by_year.setdefault(year, 0)
         total_female_by_year[year] += f_total
         
-    print("-------total female by year-------")
     print(total_female_by_year)
-    print("------total male by year---------")
     print(total_male_by_year)
         
     
@@ -113,28 +104,21 @@ def home(request):
     if response.status_code == 200:
         # Print the response content
         print(response.text)
-        # If the content is JSON, you can use response.json() to parse it
-        # json_data = response.json()
+        
     else:
         print(f"Error: {response.status_code}")
         
     response2 = requests.get(baseurl2, verify=False)
     if response2.status_code == 200:
-        print('------------------response2------------------')
         print(response2.text)
     else:
         print(f"Error: {response2.status_code}")
         
     response3 = requests.get(baseurl3, verify=False)
     if response3.status_code == 200:
-        print('------------------response3------------------')
         print(response3.text)
     else:
-        print(f"Error: {response3.status_code}")
-        
-    
-        
-    
+        print(f"Error: {response3.status_code}")    
    
     
         
@@ -232,14 +216,13 @@ def home(request):
     
     
     
-    # print("-------------------------")
-    # print(transform_json_to_array(response.json()))
+   
     data = transform_json_to_array(response.json())
     data2 = transform_json2_to_array(response2.json())
-    print('------------------data2------------------')
+  
     print(data2)
     data3 = transform_json3_to_array(response3.json())
-    print('------------------data3------------------')
+   
     print(data3)
     
     applications_url = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23:Ukrainian%20asylum%20applications%20demographic%20breakdown%20in%20Europe&maxFeatures=10&outputFormat=application/json'
@@ -249,12 +232,7 @@ def home(request):
     else:
         print(f"Error: {applications_response.status_code}")
         
-    # print("-------------applications------------")
-    # print(transform_json_to_array(applications_response.json()))
-    
-    
-    
-
+   
     # Initialize empty lists to store formatted data
     
     
@@ -303,14 +281,7 @@ def home(request):
         coo_countries.add(entry['coo_name'])
         coa_countries.add(entry['coa_name'])
 
-    # # Convert sets to lists
-    # coo_countries_list = list(coo_countries)
-    # coa_countries_list = list(coa_countries)
-
-    # # Print or use the lists as needed
-    # print("Formatted Coordinates List:", formatted_coordinates_list)
-    # print("COO Countries List:", coo_countries_list)
-    # print("COA Countries List:", coa_countries_list)
+  
     
     tracking_cookie = request.COOKIES.get('tracking_cookie')
     if request.method == 'POST' and 'accept_cookie' in request.POST:

@@ -115,16 +115,6 @@
       <div class="sticky top-0 h-screen w-[100%]" id="map"></div>
     </div>
 
-    {% comment %} {% if tracking_cookie %}
-    <p>Data is being tracked.</p>
-    {% else %}
-    <p>Data is not being tracked. Please accept the tracking cookie:</p>
-    <form method="post" action="{% url 'home' %}">
-      {% csrf_token %}
-      <input type="submit" name="accept_cookie" value="Accept" />
-    </form>
-    {% endif %} {% endcomment %}
-
     <script type="text/javascript">
                                               var map;
                                                           var ukraineCoords = { lat: 48.3794, lng: 31.1656 }; // Approximate coordinates for Ukraine
@@ -197,7 +187,6 @@
                                     }
                                 });
 
-                                // ... rest of your existing code
                             }
 
                                                             // Now fit the map to the newly inclusive bounds
@@ -303,8 +292,6 @@
 
                      var ctx = document.getElementById("decChart").getContext("2d");
 
-
-
                     // Create the data for the chart
                     var chartData = {
                       labels: ["Applications", "Decisions"],
@@ -335,9 +322,6 @@
                         },
                       },
                     });
-
-
-
 
 
 
@@ -380,25 +364,6 @@
                                           line.set('icons', icons);
                                       }, 20); // Adjust for speed
                                   }
-
-
-                                                          {% comment %} function drawDemo() {
-                                            function drawLine(startCoords, endCoords) {
-                                                const line = new google.maps.Polyline({
-                                                    path: [startCoords, endCoords],
-                                                    geodesic: true,
-                                                    strokeColor: 'red',
-                                                    strokeOpacity: 1.0,
-                                                    strokeWeight: 2,
-                                                });
-
-                                                line.setMap(map);
-                                            }
-
-                                            const startCoords = { lat: 47.516231, lng: 14.550072 };
-                                            const endCoords = { lat: 46.227638, lng: 2.213749 };
-                                            drawLine(startCoords, endCoords);
-                                        } {% endcomment %}
 
                                         function updateYear() {
                           var selectedYear = document.getElementById("year").value;
