@@ -1,22 +1,26 @@
 {% extends 'uate.html' %} {% load static %} {% block content %}
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Map of Selected Countries</title>
-      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map of Selected Countries</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-      <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap" async defer></script>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <style></style>
-    </head>
-    <body>
-      <div class="flex h-full">
-        <div class="sidebar">
-          <form
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap"
+      async
+      defer
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style></style>
+  </head>
+  <body>
+    <form
       id="yearForm"
       method="GET"
       class="mx-auto my-3 font-semibold text-xl w-[50%] md:w-[32%]"
@@ -35,35 +39,84 @@
         <option value="2022">2022</option>
         <!-- Add more options for different years as needed -->
       </select>
-          <div>
-            <p id="selectedYear" class="my-3">
-              Selected Year: <span id="displayYear"></span>
-            </p>
-            <button id="infoBtn1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent1()">Layers</button>
-            <button id="infoBtn2" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent2()">Info</button>
-          </div>
+    </form>
+    <div class="flex md:flex-row flex-col justify-between">
+      <div
+        class="md:w-2/4 p-10 h-screen overflow-y-auto bg-[#f8f8fc] rounded-md"
+      >
+        <div>
+          <p id="selectedYear" class="my-3">
+            Selected Year: <span id="displayYear"></span>
+          </p>
+          <button
+            id="infoBtn1"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onclick="showInfoContent1()"
+          >
+            Layers
+          </button>
+          <button
+            id="infoBtn2"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onclick="showInfoContent2()"
+          >
+            Info
+          </button>
+        </div>
 
-          <div id="infoContent1">
-            <div class="box-shadow pt-5" id="info-card"></div>
-            <div class="summary">
-              <p class="my-3 font-semibold">Dataset summary</p>
-              <canvas id="LineChart"></canvas>
-              <canvas id="Line2Chart"></canvas>
-            </div>
-          </div>
-          <div id="infoContent2">
-            <p class="copyright">
-              &copy; Copyright by
-              <a class="portfolio-link" target="_blank" href="kibetnimrod.com">Nimrod Kibet</a>
-            </p>
+        <div id="infoContent1">
+          <div class="box-shadow pt-5" id="info-card"></div>
+          <div class="summary">
+            <p class="my-3 font-semibold">Dataset summary</p>
+            <canvas id="LineChart"></canvas>
+            <canvas id="Line2Chart"></canvas>
           </div>
         </div>
-        <!-- Map -->
-        <div id="map"></div>
-      </div>
+        <div id="infoContent2">
+          <p class="pt-5">
+            Welcome to UATE web map! This dashboard is designed to provide an
+            overview of trends of Ukrainian asylum seekers in Europe over the
+            past decade. Please note that the data visualization may take a
+            moment to load.
+          </p>
 
-      <script type="text/javascript">
-                    var map;
+          <p class="pt-5">
+            The asylum data presented in the charts is from the United Nations
+            High Commission for Refugees (UNHCR) Refugee Statistics API. It
+            spans from 2013 to 2022 and reflects the number of asylum
+            applicants, decisions made on the applications and the population of
+            Ukrainian nationals living with asylum status in the respective
+            countries.
+          </p>
+          <p class="pt-5">
+            The project is more than just a data visualization; it's a narrative
+            of human experience. It serves as a resource for migration studies
+            students by shedding light on the trends and outcomes of Ukrainian
+            asylum applications. The aim is to foster a deeper understanding of
+            the complexities involved in seeking refuge and the global responses
+            to such crises.
+          </p>
+
+          <p class="pt-5">
+            We encourage you to share your thoughts, suggestions, or any
+            observations you might have about this map and its content.
+          </p>
+          <p>
+            You can get in touch
+            <a
+              class="text-blue-500 text-xl"
+              target="_blank"
+              href="https://kibetnimrod.com/resume"
+              >here</a
+            >
+          </p>
+        </div>
+      </div>
+      <div class="sticky top-0 h-screen w-[100%]" id="map"></div>
+    </div>
+
+    <script type="text/javascript">
+                      var map;
                     var ukraineCoords = { lat: 48.3794, lng: 31.1656 }; // Approximate coordinates for Ukraine
 
                     var coordinatesList = JSON.parse(
@@ -258,47 +311,47 @@
 
 
 
-        }
-        var currentLine = null;
-        function drawLineToUkraine(coaCoords) {
-            if (currentLine) {
-                currentLine.setMap(null); // Remove existing line if present
-            }
+                                                }
+                                                var currentLine = null;
+                                              function drawLineToUkraine(coaCoords) {
+                            if (currentLine) {
+                                currentLine.setMap(null); // Remove existing line if present
+                            }
 
-            var lineSymbol = {
-                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-            };
+                            var lineSymbol = {
+                                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                            };
 
-            var line = new google.maps.Polyline({
-                path: [ukraineCoords, coaCoords],
-                icons: [{
-                    icon: lineSymbol,
-                    offset: '0%'
-                }],
-                map: map,
-                geodesic: true,
-                strokeColor: "red",
-                strokeOpacity: 1.0,
-                strokeWeight: 2,
-            });
+                            var line = new google.maps.Polyline({
+                                path: [ukraineCoords, coaCoords],
+                                icons: [{
+                                    icon: lineSymbol,
+                                    offset: '0%'
+                                }],
+                                map: map,
+                                geodesic: true,
+                                strokeColor: "red",
+                                strokeOpacity: 1.0,
+                                strokeWeight: 2,
+                            });
 
-            currentLine = line; // Update current line
+                            currentLine = line; // Update current line
 
-            animateArrow(line); // Call the function to animate the arrow
-        }
+                            animateArrow(line); // Call the function to animate the arrow
+                        }
 
-            function animateArrow(line) {
-                var count = 0;
-                window.setInterval(function() {
-                    count = (count + 1) % 200; // Adjust speed and loop
+                        function animateArrow(line) {
+                            var count = 0;
+                            window.setInterval(function() {
+                                count = (count + 1) % 200; // Adjust speed and loop
 
-                    var icons = line.get('icons');
-                    icons[0].offset = (count / 2) + '%'; // Move the icon
-                    line.set('icons', icons);
-                }, 20); // Adjust for speed
-            }
+                                var icons = line.get('icons');
+                                icons[0].offset = (count / 2) + '%'; // Move the icon
+                                line.set('icons', icons);
+                            }, 20); // Adjust for speed
+                        }
 
-            function updateYear() {
+                              function updateYear() {
                 var selectedYear = document.getElementById("year").value;
                 var currentUrl = window.location.href;
 
@@ -307,7 +360,7 @@
 
                 // Redirect to the updated URL
                 window.location.href = updatedUrl;
-                }
+              }
 
             function showInfoContent1() {
                 let infoContent1 = document.getElementById("infoContent1");
@@ -348,7 +401,7 @@
 
             }
 
-          let litx = document.getElementById("LineChart").getContext("2d");
+            let litx = document.getElementById("LineChart").getContext("2d");
 
           // Preprocess the data from "applications" and "decisions"
           let applicationData = "{{ applications | safe | escapejs }}";
@@ -414,66 +467,66 @@
             },
           });
 
-            let linetx = document.getElementById("Line2Chart").getContext("2d");
+                         let linetx = document.getElementById("Line2Chart").getContext("2d");
 
-            let secondlabels = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021"];
-
-
-            // Create the data for the chart
-            let linchartData = {
-                labels: labels,
-                datasets: [
-                {
-                    label: "Female",
-                    data: [{{ total_female_by_year.2013 }}, {{ total_female_by_year.2014 }}, {{ total_female_by_year.2015 }}, {{ total_female_by_year.2016 }}, {{ total_female_by_year.2017 }}, {{ total_female_by_year.2018 }}, {{ total_female_by_year.2019 }}, {{ total_female_by_year.2020 }}, {{ total_female_by_year.2021 }}],
-                    backgroundColor: "rgba(255, 99, 132, 0.5)",
-                    borderColor: "rgba(255, 99, 132, 1)",
-                    borderWidth: 1,
-                },
-                {
-                    label: "male",
-                    data: [{{ total_male_by_year.2013 }}, {{ total_male_by_year.2014 }}, {{ total_male_by_year.2015 }}, {{ total_male_by_year.2016 }}, {{ total_male_by_year.2017 }}, {{ total_male_by_year.2018 }}, {{ total_male_by_year.2019 }}, {{ total_male_by_year.2020 }}, {{ total_male_by_year.2021 }}],
-                    backgroundColor: "rgba(54, 162, 235, 0.5)",
-                    borderColor: "rgba(54, 162, 235, 1)",
-                    borderWidth: 1,
-                },
-                ],
-            };
-
-            // Create and display the chart as a line chart
-            let myLine2Chart = new Chart(linetx, {
-                type: "line",
-                data: linchartData,
-                options: {
-                scales: {
-                    y: {
-                    beginAtZero: true,
-                    },
-                },
-                },
-            });
+                         let secondlabels = ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020","2021"];
 
 
+                        // Create the data for the chart
+                        let linchartData = {
+                          labels: labels,
+                          datasets: [
+                            {
+                              label: "Female",
+                              data: [{{ total_female_by_year.2013 }}, {{ total_female_by_year.2014 }}, {{ total_female_by_year.2015 }}, {{ total_female_by_year.2016 }}, {{ total_female_by_year.2017 }}, {{ total_female_by_year.2018 }}, {{ total_female_by_year.2019 }}, {{ total_female_by_year.2020 }}, {{ total_female_by_year.2021 }}],
+                              backgroundColor: "rgba(255, 99, 132, 0.5)",
+                              borderColor: "rgba(255, 99, 132, 1)",
+                              borderWidth: 1,
+                            },
+                            {
+                              label: "male",
+                              data: [{{ total_male_by_year.2013 }}, {{ total_male_by_year.2014 }}, {{ total_male_by_year.2015 }}, {{ total_male_by_year.2016 }}, {{ total_male_by_year.2017 }}, {{ total_male_by_year.2018 }}, {{ total_male_by_year.2019 }}, {{ total_male_by_year.2020 }}, {{ total_male_by_year.2021 }}],
+                              backgroundColor: "rgba(54, 162, 235, 0.5)",
+                              borderColor: "rgba(54, 162, 235, 1)",
+                              borderWidth: 1,
+                            },
+                          ],
+                        };
+
+                        // Create and display the chart as a line chart
+                        let myLine2Chart = new Chart(linetx, {
+                          type: "line",
+                          data: linchartData,
+                          options: {
+                            scales: {
+                              y: {
+                                beginAtZero: true,
+                              },
+                            },
+                          },
+                        });
 
 
 
-            console.log(["{{ total_decisions_by_year.2013 }}, {{ total_decisions_by_year.2014 }}, {{ total_decisions_by_year.2015 }}, {{ total_decisions_by_year.2016 }}, {{ total_decisions_by_year.2017 }}, {{ total_decisions_by_year.2018 }}, {{ total_decisions_by_year.2019 }}, {{ total_decisions_by_year.2020 }}, {{ total_decisions_by_year.2021 }}, {{ total_decisions_by_year.2022 }}"]);
-            console.log("{{total_decisions_by_year.2013 }}");
 
 
-            document.addEventListener("DOMContentLoaded", function () {
-                let infoContent1 = document.getElementById("infoContent1");
-                    let infoContent2 = document.getElementById("infoContent2");
+                        console.log(["{{ total_decisions_by_year.2013 }}, {{ total_decisions_by_year.2014 }}, {{ total_decisions_by_year.2015 }}, {{ total_decisions_by_year.2016 }}, {{ total_decisions_by_year.2017 }}, {{ total_decisions_by_year.2018 }}, {{ total_decisions_by_year.2019 }}, {{ total_decisions_by_year.2020 }}, {{ total_decisions_by_year.2021 }}, {{ total_decisions_by_year.2022 }}"]);
+                        console.log("{{total_decisions_by_year.2013 }}");
 
-                    let infoBtn1 = document.getElementById("infoBtn1");
-                    let infoBtn2 = document.getElementById("infoBtn2");
 
-                    infoContent1.classList.add("hidden");
-                    infoContent2.classList.remove("hidden");
-                    infoBtn2.classList.add("bg-[#1f2a38]");
-                    infoBtn1.classList.remove("bg-[#1f2a38]");
-                    var yearSelect = document.getElementById("year");
-            var displayYear = document.getElementById("displayYear");
+                        document.addEventListener("DOMContentLoaded", function () {
+                          let infoContent1 = document.getElementById("infoContent1");
+                                let infoContent2 = document.getElementById("infoContent2");
+
+                                let infoBtn1 = document.getElementById("infoBtn1");
+                                let infoBtn2 = document.getElementById("infoBtn2");
+
+                                infoContent1.classList.add("hidden");
+                                infoContent2.classList.remove("hidden");
+                                infoBtn2.classList.add("bg-[#1f2a38]");
+                                infoBtn1.classList.remove("bg-[#1f2a38]");
+                                var yearSelect = document.getElementById("year");
+                    var displayYear = document.getElementById("displayYear");
 
                     // Function to get URL parameters
                     function getUrlParameter(name) {
@@ -525,6 +578,6 @@
                         summary.classList.remove("hidden");
                     }
     </script>
-    </body>
-  </html>
+  </body>
+</html>
 {% endblock %}```
