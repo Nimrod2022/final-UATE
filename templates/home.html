@@ -13,28 +13,28 @@
       <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <style></style>
     </head>
-    <body>
+    <body >
       <div class="flex h-full">
-        <div class="sidebar">
+        <div class="sidebar w-full bg-[#42484d]">
           <form
-      id="yearForm"
-      method="GET"
-      class="mx-auto my-3 font-semibold text-xl w-[50%] md:w-[32%]"
-    >
-      <label for="year">Year:</label>
-      <select id="year" name="year">
-        <option value="2013">2013</option>
-        <option value="2014">2014</option>
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <!-- Add more options for different years as needed -->
-      </select>
+          id="yearForm"
+          method="GET"
+          class="my-3 font-semibold w-[50%] md:w-[80%]">
+      
+            <label for="year">Year:</label>
+              <select id="year" name="year">
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <!-- Add more options for different years as needed -->
+              </select>
           <div>
             <p id="selectedYear" class="my-3">
               Selected Year: <span id="displayYear"></span>
@@ -51,7 +51,30 @@
               <canvas id="Line2Chart"></canvas>
             </div>
           </div>
-          <div id="infoContent2">
+          <div class="text-white" id="infoContent2">
+            <p class="pt-5 text-2xl">
+              Welcome to UATE web map! This dashboard is designed to provide an
+              overview of trends of Ukrainian asylum seekers in Europe over the
+              past decade. Please note that the data visualization may take a
+              moment to load.
+            </p>
+  
+            <p class="pt-5 text-2xl">
+              The asylum data presented in the charts is from the United Nations
+              High Commission for Refugees (UNHCR) Refugee Statistics API. It
+              spans from 2013 to 2022 and reflects the number of asylum
+              applicants, decisions made on the applications and the population of
+              Ukrainian nationals living with asylum status in the respective
+              countries.
+            </p>
+            <p class="pt-5 text-2xl">
+              The project is more than just a data visualization; it's a narrative
+              of human experience. It serves as a resource for migration studies
+              students by shedding light on the trends and outcomes of Ukrainian
+              asylum applications. The aim is to foster a deeper understanding of
+              the complexities involved in seeking refuge and the global responses
+              to such crises.
+            </p>
             <p class="copyright">
               &copy; Copyright by
               <a class="portfolio-link" target="_blank" href="kibetnimrod.com">Nimrod Kibet</a>
@@ -60,8 +83,8 @@
         </div>
         <!-- Map -->
         <div id="map"></div>
-      </div>
 
+      </div>
       <script type="text/javascript">
                     var map;
                     var ukraineCoords = { lat: 48.3794, lng: 31.1656 }; // Approximate coordinates for Ukraine
