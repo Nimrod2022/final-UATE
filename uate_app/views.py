@@ -16,7 +16,7 @@ def home(request):
         baseurl2 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_applications_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2022'
         baseurl3 = 'https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AUkrainian_demographics_final&maxFeatures=1000&outputFormat=application%2Fjson&CQL_FILTER=year=2022'
 
-    # Disable SSL verification (not recommended in production)
+    # Disable SSL verification 
     response = requests.get(baseurl, verify=False)
     
     all_data_base_url = "https://geoserver22s.zgis.at/geoserver/IPSDI_WT23/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=IPSDI_WT23%3AAsylum_decisions_final&maxFeatures=1000&outputFormat=application%2Fjson"
@@ -100,10 +100,9 @@ def home(request):
     new_decisions = list_to_json(decisions)
         
         
-    # Check if the request was successful (status code 200)
+    
     if response.status_code == 200:
-        # Print the response content
-        print(response.text)
+       print(response.text)
         
     else:
         print(f"Error: {response.status_code}")
@@ -126,7 +125,7 @@ def home(request):
     # Extract the features from the JSON data
         features = json_data.get('features', [])
 
-        # Create an array to store the transformed objects
+        
         transformed_array = []
 
         # Loop through each feature and extract relevant information
@@ -188,7 +187,7 @@ def home(request):
         # Create an array to store the transformed objects
         transformed_array = []
 
-        # Loop through each feature and extract relevant information
+       
         for feature in features:
             properties = feature.get('properties', {})
             geometry = feature.get('geometry', {}).get('coordinates', [])
