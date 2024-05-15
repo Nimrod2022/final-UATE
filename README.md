@@ -9,9 +9,6 @@ Project data was sourced from the United Nations High Commissioner for Refugees 
 The dashboard provides a valuable resource for students, researchers, and policymakers, offering detailed visualizations of migration trends and the ability to drill down into specific data points.
 
 
-### Architecture
-
-![Project Architecture](https://drive.google.com/uc?id=1cDNekxwgZifZphPrf6ODeQok-HrtGmOL)
 
 
 
