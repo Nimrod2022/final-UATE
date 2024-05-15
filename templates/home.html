@@ -2,27 +2,42 @@
   <!DOCTYPE html>
   <html lang="en">
     <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Map of Selected Countries</title>
-      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-      <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Map of Selected Countries</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/sweetalert2/dist/sweetalert2.min.css' %}" />
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      #map {
+          height: 100vh; /* Adjust height as needed */
+          width: 100%; /* Full width */
+      }
 
-      <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap" async defer></script>
-      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <style></style>
-    </head>
+      .sidebar{
+        width: 100%;
+        background-color: #2d3439;
+
+      }
+      
+  </style>
+</head>
     <body >
-      <div class="flex h-full">
-        <div class="sidebar w-full bg-[#42484d]">
+      <div class="flex">
+        <div class="sidebar w-full ">
+          <div class="flex items-center Justify-center gap-5 font-bold text-white">
+            <img src="static/images/logo.png" class="size-20" alt="logo">
+            <p class="text-3xl ">Asylum Monitoring Europe - Ukraine</p>
+          </div>
           <form
           id="yearForm"
           method="GET"
-          class="my-3 font-semibold w-[50%] md:w-[80%]">
+          class="my-3 text-2xl pt-5 ">
       
-            <label for="year">Year:</label>
-              <select id="year" name="year">
+            <label for="year"> <span class="text-2xl">Year:</span></label>
+              <select id="year" class="rounded-lg py-3 px-5" name="year">
                 <option value="2013">2013</option>
                 <option value="2014">2014</option>
                 <option value="2015">2015</option>
@@ -33,14 +48,13 @@
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
-                <!-- Add more options for different years as needed -->
               </select>
-          <div>
-            <p id="selectedYear" class="my-3">
+          <div class="pt-10">
+            {% comment %} <p id="selectedYear" class="my-3">
               Selected Year: <span id="displayYear"></span>
-            </p>
-            <button id="infoBtn1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent1()">Layers</button>
-            <button id="infoBtn2" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent2()">Info</button>
+            </p> {% endcomment %}
+            <button id="infoBtn1" class="bg-blue-500 hidden hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent1()">Layers</button>
+            <button id="infoBtn2" class="hover:bg-blue-700 bg-blue-500 text-white font-bold py-2 py-5 px-10 rounded" onclick="showInfoContent2()">About</button>
           </div>
 
           <div id="infoContent1">
@@ -75,9 +89,9 @@
               the complexities involved in seeking refuge and the global responses
               to such crises.
             </p>
-            <p class="copyright">
+            <p class="">
               &copy; Copyright by
-              <a class="portfolio-link" target="_blank" href="kibetnimrod.com">Nimrod Kibet</a>
+              <a class="text-white" target="_blank" href="https://kibetnimrod.com">Nimrod Kibet</a>
             </p>
           </div>
         </div>
@@ -195,21 +209,21 @@
         card.innerHTML = `
         <h1 class="text-blue-500 font-bold text-2xl uppercase">${data.coa_name}</h1>
         <p class="font-medium text-blue-500 text-2xl">${data.year}</p>
-        <div class="h-[2px] bg-blue-500 mt-3 w-[100%]"></div>
+        <div class="h-[2px] bg-white mt-3 w-[100%]"></div>
 
 
         <div class="flex gap-5 items-center mt-3">
           <h2 class="text-blue-500 text-4xl">${applications}<h2>
-          <p class="text-2xl">applications</p>
+          <p class="text-2xl text-white">Applications</p>
         </div>
 
-        <p class="pt-2 text-center font-semibold"> Male vs Female Total </p>
+        <p class="pt-2 text-center text-white font-semibold"> Male vs Female Total </p>
 
 
 
         <canvas id="pyChart"></canvas>
 
-      <p class="py-2 font-semibold text-center"> Applications vs Decisions </p>
+      <p class="py-2 font-semibold text-white text-center"> Applications vs Decisions </p>
       <canvas id="decChart"></canvas> `;
 
             var ctx = document.getElementById("pyChart").getContext("2d");

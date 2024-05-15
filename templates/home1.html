@@ -1,121 +1,73 @@
 {% extends 'uate.html' %} {% load static %} {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Map of Selected Countries</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Map of Selected Countries</title>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+      <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap"
-      async
-      defer
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style></style>
-  </head>
-  <body>
-    <form
-      id="yearForm"
-      method="GET"
-      class="mx-auto my-3 font-semibold text-xl w-[50%] md:w-[32%]"
-    >
-      <label for="year">Year:</label>
-      <select id="year" name="year">
-        <option value="2013">2013</option>
-        <option value="2014">2014</option>
-        <option value="2015">2015</option>
-        <option value="2016">2016</option>
-        <option value="2017">2017</option>
-        <option value="2018">2018</option>
-        <option value="2019">2019</option>
-        <option value="2020">2020</option>
-        <option value="2021">2021</option>
-        <option value="2022">2022</option>
-        <!-- Add more options for different years as needed -->
-      </select>
-    </form>
-    <div class="flex md:flex-row flex-col justify-between">
-      <div
-        class="md:w-2/4 p-10 h-screen overflow-y-auto bg-[#f8f8fc] rounded-md"
-      >
-        <div>
-          <p id="selectedYear" class="my-3">
-            Selected Year: <span id="displayYear"></span>
-          </p>
-          <button
-            id="infoBtn1"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onclick="showInfoContent1()"
-          >
-            Layers
-          </button>
-          <button
-            id="infoBtn2"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onclick="showInfoContent2()"
-          >
-            Info
-          </button>
-        </div>
+      <script src="https://maps.googleapis.com/maps/api/js?key={{ GOOGLE_API_KEY }}&callback=initMap" async defer></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <style></style>
+    </head>
+    <body>
+      <div class="flex md:flex-row flex-col justify-between">
+        <div class="md:w-2/4 p-10 h-screen overflow-y-auto bg-[#f8f8fc] rounded-md">
+          <div>
+            <div class="flex items-center Justify-center gap-5 pb-5 font-bold">
+              <img src="static/images/logo.png" class="size-10" alt="logo">
+              <p class="text-xl ">Asylum Monitoring Europe - Ukraine</p>
+            </div>
+            <form id="yearForm" method="GET" class=" my-3 flex gap-3 font-semibold items-center text-xl w-[50%] pb-5 md:w-[32%]">
+              <label for="year">Year:</label>
+              <select id="year" name="year" class="rounded-lg bg-blue-500 text-white py-2 px-4">
+                <option value="2013">2013</option>
+                <option value="2014">2014</option>
+                <option value="2015">2015</option>
+                <option value="2016">2016</option>
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020">2020</option>
+                <option value="2021">2021</option>
+                <option value="2022">2022</option>
+                <!-- Add more options for different years as needed -->
+              </select>
+            </form>
+            {% comment %} <p id="selectedYear" class="my-3">
+              Selected Year: <span id="displayYear"></span>
+            </p> {% endcomment %}
+            <button id="infoBtn1" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent1()">Layers</button>
+            <button id="infoBtn2" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onclick="showInfoContent2()">Info</button>
+          </div>
 
-        <div id="infoContent1">
-          <div class="box-shadow pt-5" id="info-card"></div>
-          <div class="summary">
-            <p class="my-3 font-semibold">Dataset summary</p>
-            <canvas id="LineChart"></canvas>
-            <canvas id="Line2Chart"></canvas>
+          <div id="infoContent1">
+            <div class="box-shadow pt-5" id="info-card"></div>
+            <div class="summary">
+              <p class="my-3 font-semibold">Dataset summary</p>
+              <canvas id="LineChart"></canvas>
+              <canvas id="Line2Chart"></canvas>
+            </div>
+          </div>
+          <div id="infoContent2">
+            <p class="pt-5">Welcome to UATE web map! This dashboard is designed to provide an overview of trends of Ukrainian asylum seekers in Europe over the past decade.</p>
+
+            <p class="pt-5">The asylum data presented in the charts is from the United Nations High Commission for Refugees (UNHCR) Refugee Statistics API. It spans from 2013 to 2022 and reflects the number of asylum applicants, decisions made on the applications and the population of Ukrainian nationals living with asylum status in the respective countries.</p>
+            <p class="pt-5">The projects serves as a basis of fostering a deeper understanding of the complexities involved in seeking refuge and the global responses to such crises.</p>
+
+            <p class="pt-5">We encourage you to share your thoughts, suggestions, or any observations you might have about this map and its content.</p>
+            <p class="pt-5">
+              &copy; Copyright by
+              <a class="text-blue-500" target="_blank" href="https://kibetnimrod.com">Nimrod Kibet</a>
+            </p>
           </div>
         </div>
-        <div id="infoContent2">
-          <p class="pt-5">
-            Welcome to UATE web map! This dashboard is designed to provide an
-            overview of trends of Ukrainian asylum seekers in Europe over the
-            past decade. Please note that the data visualization may take a
-            moment to load.
-          </p>
-
-          <p class="pt-5">
-            The asylum data presented in the charts is from the United Nations
-            High Commission for Refugees (UNHCR) Refugee Statistics API. It
-            spans from 2013 to 2022 and reflects the number of asylum
-            applicants, decisions made on the applications and the population of
-            Ukrainian nationals living with asylum status in the respective
-            countries.
-          </p>
-          <p class="pt-5">
-            The project is more than just a data visualization; it's a narrative
-            of human experience. It serves as a resource for migration studies
-            students by shedding light on the trends and outcomes of Ukrainian
-            asylum applications. The aim is to foster a deeper understanding of
-            the complexities involved in seeking refuge and the global responses
-            to such crises.
-          </p>
-
-          <p class="pt-5">
-            We encourage you to share your thoughts, suggestions, or any
-            observations you might have about this map and its content.
-          </p>
-          <p>
-            You can get in touch
-            <a
-              class="text-blue-500 text-xl"
-              target="_blank"
-              href="https://kibetnimrod.com/resume"
-              >here</a
-            >
-          </p>
-        </div>
+        <div class="sticky top-0 h-screen w-[100%]" id="map"></div>
       </div>
-      <div class="sticky top-0 h-screen w-[100%]" id="map"></div>
-    </div>
 
-    <script type="text/javascript">
+      <script type="text/javascript">
                       var map;
                     var ukraineCoords = { lat: 48.3794, lng: 31.1656 }; // Approximate coordinates for Ukraine
 
@@ -230,19 +182,20 @@
 
         <div class="flex gap-5 items-center mt-3">
           <h2 class="text-blue-500 text-4xl">${applications}<h2>
-          <p class="text-2xl">applications</p>
+          <p class="text-2xl">Applications</p>
         </div>
 
         <p class="pt-2 text-center font-semibold"> Male vs Female Total </p>
 
 
 
-        <canvas id="pyChart"></canvas>
+        <canvas id="pyChart" ></canvas>
 
       <p class="py-2 font-semibold text-center"> Applications vs Decisions </p>
       <canvas id="decChart"></canvas> `;
 
             var ctx = document.getElementById("pyChart").getContext("2d");
+       
 
       // Create the data for the chart
       var pchartData = {
@@ -578,6 +531,6 @@
                         summary.classList.remove("hidden");
                     }
     </script>
-  </body>
-</html>
+    </body>
+  </html>
 {% endblock %}```
